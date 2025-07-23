@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadhan World App</title>
+    <!-- SEO Meta Tags -->
+    <meta name="title" content="Radio Ramadhan | Live Islamic Radio for Ramadan">
+    <meta name="description" content="Listen to 24/7 Islamic radio during Ramadan. Featuring Quran recitations, naats, duas, Islamic talks, and live Ramadhan transmissions.">
+    <meta name="keywords" content="Ramadan Radio, Islamic Radio, Live Quran, Islamic Nasheed, Ramadhan, Online Islamic Audio, Muslim Radio, RadioRamadhan">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="author" content="RamadhanWorld Team">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph Tags for Social Sharing -->
+    <meta property="og:title" content="Radio Ramadhan | Live Islamic Radio for Ramadan">
+    <meta property="og:description" content="24/7 Islamic audio stream with Quran, nasheeds, and Ramadan talks.">
+    <meta property="og:image" content="https://i.ibb.co/v46P5G1q/ART-WORKS-80-x-80-px.png">
+    <meta property="og:url" content="https://ramadhanworld.github.io/RADIORAMADHAN/">
+    <meta property="og:type" content="website">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RadioStation",
+      "name": "Ramadhan World Radio",
+      "url": "https://ramadhanworld.github.io/RADIORAMADHAN/",
+      "logo": "https://i.ibb.co/v46P5G1q/ART-WORKS-80-x-80-px.png",
+      "sameAs": [
+        "https://facebook.com/RadioRamadhan",
+        "https://twitter.com/RadioRamadhan"
+      ],
+      "description": "24/7 online Islamic radio with Quran, naats, duas, and Ramadan programming.",
+      "broadcastFrequency": "Online",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Worldwide"
+      }
+    }
+    </script>
+
+    <!-- PWA Manifest Link - Embedded as Data URI for self-contained HTML for sandboxed environments -->
+    <!-- For a live deployment over HTTPS, this should be a separate file (e.g., <link rel="manifest" href="/manifest.json">) -->
+    <link rel="manifest" href="data:application/json;base64,eyJpY29ucyI6IFt7InNpemVzIjogIjgweDgwIiwgInR5cGUiOiAiaW1hZ2UvcG5nIiwgInNyYyI6ICJodHRwczovL2iuaWJiLmNvL3Y0NlA1RzFxL0FSVC1XT1JLUy04MC14LTgwLXB4LnBuZyJ9LCB7InNpemVzIjogIjE5MngxOTIiLCAidHlwZSI6ICJpbWFnZS9wbmciLCAic3JjIjogImh0dHBzOi8vcGxhY2Vob2xkLmNvLzE5MngxOTIvMzc0MTUxL2ZmZmZmZj90ZXh0PUFwcCtJY29uIiwicHVycG9zZXMiOiAiYW55IG1hc2thYmxlIn0sIHsns2l6ZXMiOiAiNTEyeDUxMiIsICJ0eXBlIjogImltYWdlL3BuZyIsICJzcmMiOiAiaHR0cHM6Ly9wbGFjZWhvbGQuY28vNTEyeDUxMi8zNzQ1MTEvZmZmZmZmP3RleHQ9QXBwK0ljb24iLCJwdXJwb3NlcyI6ICJhbnkgbWFza2FibGUifV0sImRlc2NyaXB0aW9uIjogIllvdXIgZGFpbHkgY29tcGFuaW9uIGZvciBSYW1hZGhhbiBhbmQgSXNsYW1pYyBwcmFjdGljZXMuIiwiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwibmFtZSI6ICJSYW1hZGhhbiBXb3JsZCBBcHAiLCJzaG9ydF9uYW1lIjogIlJhbWFkZGhhbkFwcCIsInN0YXJ0X3VybCI6ICIvUkFESU9SQU1BREhBTi9pbmRleC5odG1sIiwidGhlbWVfY29sb3IiOiAiIzA2QjZENEJDM0Q0IiwiYmFja2dyb3VuZF9jb2xvciI6ICIjMTExODI3Iiwib3JpZW50YXRpb24iOiAicG9ydHJhaXQtcHJpbWFyeSJ9">
+
+    <!-- PWA Full-Screen Meta Tags -->
+    <!-- These meta tags help the app behave like a native app when added to the home screen -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Ramadhan App">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/v46P5G1q/ART-WORKS-80-x-80-px.png">
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .prayer-time.active {
+            background-color: rgba(6, 182, 212, 0.3);
+            border-left-width: 4px;
+            border-color: #06B6D4;
+            transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition for active state */
+        }
+        .nav-button.active {
+            background-color: #06B6D4;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        /* Qibla Marker styling for the main indicator */
+        #qibla-marker {
+            transition: transform 0.5s ease-out;
+            transform-origin: center center; /* Rotate around its center */
+        }
+        .quran-surah:hover, .radio-station-item:hover, .juz-item:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        .radio-station-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .radio-station-item.active {
+            background-color: rgba(6, 182, 212, 0.2);
+            border: 1px solid #06B6D4;
+        }
+        .radio-player-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .radio-player-controls button {
+            background-color: #06B6D4;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 9999px; /* Full rounded for circular buttons */
+            font-size: 1.25rem;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .radio-player-controls button:hover {
+            background-color: #0891B2;
+            transform: translateY(-2px);
+        }
+        .radio-player-controls button:active {
+            transform: translateY(0);
+        }
+        .settings-saved-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #10B981; /* Green for success */
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 1000;
+        }
+        .settings-saved-message.show {
+            opacity: 1;
+        }
+        /* Responsive YouTube iframe */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-lg */
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Qibla Compass Specific Styles */
+        #compass {
+            position: relative;
+            width: 256px; /* 64 * 4 */
+            height: 256px; /* 64 * 4 */
+            background-color: #1f2937; /* gray-800 */
+            border-radius: 9999px; /* rounded-full */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #374151; /* gray-700 */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Cardinal direction markers */
+        #compass .direction-marker {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1.25rem; /* text-xl */
+            z-index: 1; /* Ensure markers are above lines */
+        }
+        #compass .direction-marker.north { top: 8px; left: 50%; transform: translateX(-50%); color: #ef4444; /* red-500 */ }
+        #compass .direction-marker.south { bottom: 8px; left: 50%; transform: translateX(-50%); }
+        #compass .direction-marker.east { right: 8px; top: 50%; transform: translateY(-50%); }
+        #compass .direction-marker.west { left: 8px; top: 50%; transform: translateY(-50%); }
+
+        /* Directional lines */
+        #compass .direction-line {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.2);
+            z-index: 0;
+        }
+        #compass .direction-line.vertical {
+            width: 2px;
+            height: 100%;
+        }
+        #compass .direction-line.horizontal {
+            height: 2px;
+            width: 100%;
+        }
+
+        /* Qibla Marker SVG styling (blue line) */
+        #qibla-marker svg {
+            width: 8px; /* Width of the line, increased for bolder */
+            height: 120px; /* Length of the line, increased for bigger */
+            fill: #06B6D4; /* Cyan color */
+            filter: drop-shadow(0 0 5px rgba(6, 182, 212, 0.7)); /* Subtle glow */
+            /* Position the line to be at the top of the compass, pointing upwards */
+            transform: translateY(-50%); /* Adjust to center the line vertically on the compass */
+        }
+        #qibla-marker svg path {
+            stroke: #06B6D4; /* Line color */
+            stroke-width: 8px; /* Line thickness, increased for bolder */
+            fill: none; /* No fill for a line */
+        }
+
+
+        /* Quran reading section styles */
+        .quran-text-container {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            text-align: right; /* Right-to-left for Arabic */
+        }
+        .quran-ayah-group {
+            margin-bottom: 0.25rem; /* Reduced spacing further */
+            padding-bottom: 0.25rem; /* Reduced padding */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            direction: rtl; /* Overall RTL for the group */
+            line-height: 1.6; /* Adjusted for tighter Arabic lines */
+            display: flex; /* Use flexbox for inline Ayah number */
+            flex-wrap: wrap; /* Allow content to wrap */
+            align-items: baseline; /* Align text and number at baseline */
+            justify-content: flex-end; /* Align to the right */
+        }
+        .quran-ayah-group:last-child {
+            border-bottom: none;
+        }
+        .arabic-text {
+            font-size: 1.6rem;
+            display: inline; /* Keep Arabic text inline */
+            white-space: pre-wrap; /* Preserve spaces and allow wrapping */
+        }
+        .ayah-number-inline {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            display: inline-block; /* Keep it as inline-block for positioning */
+            direction: ltr; /* Ensure number is LTR within the RTL flow */
+            margin-left: 0.25rem; /* Small margin to separate from Arabic text */
+            vertical-align: middle; /* Align vertically with text */
+            font-family: 'Times New Roman', serif; /* Often used for traditional ayah numbers */
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .translation-text {
+            display: block;
+            font-size: 0.9rem;
+            color: #a1a1aa;
+            margin-top: 0.25rem; /* Reduced margin */
+            direction: ltr;
+            text-align: left;
+            width: 100%; /* Ensure translation takes full width below Arabic */
+        }
+        .juz-item {
+            cursor: pointer;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.08);
+            transition: background-color 0.2s ease-in-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .juz-filter-dropdown {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: #374151; /* gray-700 */
+            color: white;
+            border: none;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* High-quality audio player styling */
+        #quran-audio-player {
+            width: 100%;
+            background-color: #1f2937; /* Darker background */
+            border-radius: 0.75rem; /* Rounded corners */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            padding: 0.5rem; /* Some internal padding */
+            outline: none; /* Remove default focus outline */
+        }
+
+        /* Style for the controls within the audio player */
+        #quran-audio-player::-webkit-media-controls-panel {
+            background-color: #1f2937; /* Match player background */
+            border-radius: 0.5rem;
+        }
+
+        #quran-audio-player::-webkit-media-controls-play-button,
+        #quran-audio-player::-webkit-media-controls-current-time-display,
+        #quran-audio-player::-webkit-media-controls-time-remaining-display,
+        #quran-audio-player::-webkit-media-controls-timeline,
+        #quran-audio-player::-webkit-media-controls-volume-slider,
+        #quran-audio-player::-webkit-media-controls-mute-button,
+        #quran-audio-player::-webkit-media-controls-fullscreen-button {
+            color: #06B6D4; /* Cyan color for icons/text */
+        }
+
+        #quran-audio-player::-webkit-media-controls-timeline {
+            background-color: rgba(6, 182, 212, 0.3); /* Lighter cyan for timeline background */
+            border-radius: 9999px; /* Pill shape */
+        }
+
+        #quran-audio-player::-webkit-media-controls-play-button {
+            background-color: #06B6D4;
+            border-radius: 9999px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #quran-audio-player::-webkit-media-controls-play-button:hover {
+            background-color: #0891B2;
+        }
+
+        /* Firefox specific styles */
+        #quran-audio-player {
+            -moz-appearance: none;
+            appearance: none;
+        }
+        #quran-audio-player::-moz-range-track {
+            background-color: rgba(6, 182, 212, 0.3);
+            border-radius: 9999px;
+        }
+        #quran-audio-player::-moz-range-thumb {
+            background-color: #06B6D4;
+        }
+
+        /* Tasbeeh Counter Specific Styles */
+        #tasbeeh-counter-display {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #06B6D4;
+            margin-bottom: 1rem;
+        }
+        .tasbeeh-button {
+            background-color: #06B6D4;
+            color: white;
+            padding: 2rem;
+            border-radius: 9999px; /* Circular */
+            font-size: 2rem;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem auto;
+        }
+        .tasbeeh-button:hover {
+            background-color: #0891B2;
+            transform: translateY(-2px);
+        }
+        .tasbeeh-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .reset-button {
+            background-color: #EF4444;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+        .reset-button:hover {
+            background-color: #DC2626;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <div id="loading-screen" class="fixed inset-0 bg-gray-900 bg-opacity-90 flex flex-col justify-center items-center z-50">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-cyan-500"></div>
+        <p class="mt-4 text-lg">Loading Ramadhan World App...</p>
+    </div>
+
+    <div id="main-content" class="min-h-screen container mx-auto p-4 sm:p-6 lg:p-8 opacity-0 transition-opacity duration-1000">
+        <!-- Header Section -->
+        <header class="text-center mb-6">
+            <!-- Logo with Madina photo and smaller size -->
+            <img id="app-logo" src="https://i.ibb.co/v46P5G1q/ART-WORKS-80-x-80-px.png" alt="Madina Photo Logo" class="w-[80px] h-[80px] mx-auto mb-2 rounded-full shadow-lg object-cover" onerror="this.onerror=null;this.src='https://placehold.co/80x80/374151/ffffff?text=Logo';">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-cyan-400">Ramadhan World</h1>
+            <p id="islamic-date" class="text-lg text-gray-300 mt-2">Loading Islamic Date...</p>
+            <p id="location" class="text-md text-gray-400 mt-1">Please select your city.</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="flex justify-center gap-2 mb-6 flex-wrap">
+            <button onclick="showView('home')" class="nav-button active px-4 py-2 rounded-lg bg-gray-700 hover:bg-cyan-500 transition">Home</button>
+            <button onclick="showView('quran')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 hover:bg-cyan-500 transition">Quran</button> 
+            <button onclick="showView('tasbeeh')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 hover:bg-cyan-500 transition">Tasbeeh</button>
+            <button onclick="showView('qibla')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 hover:bg-cyan-500 transition">Qibla</button>
+            <button onclick="showView('salah')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 hover:bg-cyan-500 transition">Salah</button>
+            <button onclick="showView('naat')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 hover:bg-cyan-500 transition">Naat</button>
+            <button onclick="showView('settings')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 hover:bg-cyan-500 transition">Settings</button>
+        </nav>
+
+        <!-- Main Views -->
+        <main>
+            <!-- Home View -->
+            <div id="home-view">
+                <section id="countdown-section" class="mb-8">
+                    <div class="card rounded-2xl p-6 max-w-2xl mx-auto text-center">
+                        <h2 class="text-2xl font-semibold mb-2">Time until <span id="next-prayer-name" class="text-cyan-300">...</span></h2>
+                        <div id="countdown-timer" class="text-5xl font-extrabold text-cyan-300 tracking-wider">00:00:00</div>
+                    </div>
+                </section>
+
+                <!-- Radio Player on Home View -->
+                <section id="home-radio-section" class="mb-8">
+                    <div class="card rounded-2xl p-6 max-w-2xl mx-auto text-center">
+                        <button id="radio-play-pause-button" onclick="toggleRadioPlayback()" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg transition transform hover:scale-105 mb-4">
+                            Play Ramadhan World Radio
+                        </button>
+                        <audio id="radioPlayer" controls class="w-full rounded-lg">
+                            <source src="https://ramadhan786.radioca.st/stream" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <p id="radio-status-message" class="text-sm text-gray-400 mt-2 hidden">
+                            <!-- Status messages will appear here -->
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Qibla View -->
+            <div id="qibla-view" class="hidden text-center">
+                <div class="card rounded-2xl p-6 max-w-sm mx-auto">
+                    <h2 class="text-2xl font-semibold mb-4">Qibla Compass</h2>
+                    <div id="compass">
+                        <!-- Directional lines -->
+                        <div class="direction-line vertical"></div>
+                        <div class="direction-line horizontal"></div>
+
+                        <!-- Cardinal direction markers -->
+                        <div class="direction-marker north">N</div>
+                        <div class="direction-marker south">S</div>
+                        <div class="direction-marker west">W</div>
+                        <div class="direction-marker east">E</div>
+                        
+                        <!-- Qibla Marker (the main rotating indicator) -->
+                        <div id="qibla-marker" class="absolute w-full h-full flex items-center justify-center">
+                            <!-- Blue line for Qibla -->
+                            <svg width="8" height="120" viewBox="0 0 8 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 0L4 120" stroke="#06B6D4" stroke-width="8"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p id="qibla-direction" class="mt-4 text-lg text-gray-300">Rotate device to align with Qibla.</p>
+                    <p class="text-sm text-gray-500 mt-2">Ensure device is flat for accurate reading.</p>
+                </div>
+            </div>
+
+            <!-- Quran View (now for audio recitation) -->
+            <div id="quran-view" class="hidden">
+                 <div class="card rounded-2xl p-6 max-w-4xl mx-auto">
+                    <h2 class="text-2xl font-semibold mb-4 text-center">Holy Quran Recitation</h2>
+                    
+                    <div id="quran-surah-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[60vh] overflow-y-auto pr-2">
+                        <!-- Surahs will be populated here -->
+                    </div>
+                    <div id="quran-player" class="mt-6 text-center hidden">
+                        <h3 id="current-surah-name" class="text-xl font-bold mb-2 text-cyan-300"></h3>
+                        <audio id="quran-audio-player" controls class="w-full rounded-lg"></audio>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salah View -->
+            <div id="salah-view" class="hidden">
+                 <div class="card rounded-2xl p-6 max-w-2xl mx-auto">
+                    <h2 class="text-2xl font-semibold mb-4 text-center">Salah Times</h2>
+                    <section id="salah-times-section">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div id="salah-fajr" class="prayer-time card rounded-xl p-4 flex justify-between items-center"><span class="font-semibold text-lg">Fajr</span><span class="text-xl font-mono">--:--</span></div>
+                            <div id="salah-sunrise" class="prayer-time card rounded-xl p-4 flex justify-between items-center"><span class="font-semibold text-lg">Sunrise</span><span class="text-xl font-mono">--:--</span></div>
+                            <div id="salah-dhuhr" class="prayer-time card rounded-xl p-4 flex justify-between items-center"><span class="font-semibold text-lg">Dhuhr</span><span class="text-xl font-mono">--:--</span></div>
+                            <div id="salah-asr" class="prayer-time card rounded-xl p-4 flex justify-between items-center"><span class="font-semibold text-lg">Asr</span><span class="text-xl font-mono">--:--</span></div>
+                            <div id="salah-maghrib" class="prayer-time card rounded-xl p-4 flex justify-between items-center"><span class="font-semibold text-lg">Maghrib</span><span class="text-xl font-mono">--:--</span></div>
+                            <div id="salah-isha" class="prayer-time card rounded-xl p-4 flex justify-between items-center"><span class="font-semibold text-lg">Isha</span><span class="text-xl font-mono">--:--</span></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Naat View -->
+            <div id="naat-view" class="hidden">
+                <div class="card rounded-2xl p-6 mx-auto text-center">
+                    <h2 class="text-2xl font-semibold mb-4">Naat Collection</h2>
+                    <div class="video-container mb-4">
+                        <div id="youtube-player"></div>
+                    </div>
+                    <div class="flex justify-center gap-4 flex-wrap">
+                        <button onclick="previousVideo()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full text-lg shadow-lg transition transform hover:scale-105">
+                            <i class="fas fa-backward mr-2"></i>Previous
+                        </button>
+                        <button id="tv-pause-button" onclick="toggleVideoPlayback()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full text-lg shadow-lg transition transform hover:scale-105">
+                            <i class="fas fa-pause mr-2"></i>Pause
+                        </button>
+                        <button onclick="nextVideo()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full text-lg shadow-lg transition transform hover:scale-105">
+                            <i class="fas fa-forward mr-2"></i>Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasbeeh Counter View -->
+            <div id="tasbeeh-view" class="hidden text-center">
+                <div class="card rounded-2xl p-6 max-w-sm mx-auto">
+                    <h2 class="text-2xl font-semibold mb-4">Tasbeeh Counter</h2>
+                    <div id="tasbeeh-counter-display">0</div>
+                    <button onclick="incrementTasbeeh()" class="tasbeeh-button">
+                        Tap to Count
+                    </button>
+                    <button onclick="resetTasbeeh()" class="reset-button">
+                        Reset
+                    </button>
+                    <p class="text-sm text-gray-400 mt-4">
+                        Note: Direct control of device volume buttons for custom web app functionality is generally restricted by browsers for security reasons.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Settings View -->
+            <div id="settings-view" class="hidden">
+                <div class="card rounded-2xl p-6 max-w-lg mx-auto">
+                    <h2 class="text-2xl font-semibold mb-4">Azan Notifications</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <input type="radio" id="azan-notification-only" name="azan-notification" value="notification" class="mr-2" checked>
+                            <label for="azan-notification-only">Send a notification only</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="azan-silent" name="azan-notification" value="silent" class="mr-2">
+                            <label for="azan-silent">Do not notify (show time only)</label>
+                        </div>
+                        <!-- Test Azan button -->
+                        <button onclick="testAzanSound()" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition">
+                            Test Azan Sound
+                        </button>
+                        <!-- "Install App" button - initially hidden, shown by JS if PWA is installable -->
+                        <button id="install-app-button" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition hidden">
+                            <i class="fas fa-mobile-alt mr-2"></i> Install App
+                        </button>
+                        <p id="install-app-fallback" class="text-sm text-gray-400 mt-2 hidden">
+                            To install, use your browser's "Add to Home Screen" or "Install App" option.
+                            On iOS (Safari): Tap the Share button (↑) then 'Add to Home Screen'.
+                            On Android (Chrome): Tap the menu (⋮) then 'Add to Home Screen'.
+                        </p>
+                    </div>
+
+                    <button onclick="saveSettings()" class="mt-6 w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg transition">Save Settings</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>Contact us: radioramadhanworld@gmail.com</p>
+            <p>Powered by RAMADHAN WORLD PRODUCTION</p>
+            <!-- AdSense Code -->
+            <div class="flex justify-center mt-4 mb-4">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8794459819365243"
+                        crossorigin="anonymous"></script>
+                <!-- ISLAMIC -->
+                <ins class="adsbygoogle"
+                    style="display:inline-block;width:320px;height:50px"
+                    data-ad-client="ca-pub-8794459819365243"
+                    data-ad-slot="9466135280"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Updated Azan audio sources -->
+    <audio id="azan-fajr-audio" src="https://islamic-sound.com/wp-content/uploads/2022/10/azan-2.mp3" preload="auto"></audio>
+    <audio id="azan-other-audio" src="https://islamic-sound.com/wp-content/uploads/2022/10/azan-2.mp3" preload="auto"></audio>
+    <div id="settings-saved-message" class="settings-saved-message hidden">Settings Saved!</div>
+    <div id="azan-play-failed-message" class="settings-saved-message hidden bg-red-500">Azan audio blocked by browser. Please interact with the page.</div>
+
+    <!-- YouTube IFrame Player API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>
+        // --- Constants ---
+        const QURAN_AUDIO_BASE_URL = 'https://download.quranicaudio.com/quran/abdullah_basfar/';
+        // Removed QURAN_TEXT_ARABIC_BASE_URL and QURAN_TEXT_TRANSLATION_BASE_URL as they are not used in the new Quran system
+        const LAST_LISTENED_KEY = 'lastListenedQuran'; // Key for localStorage
+
+        // --- DOM Elements & State ---
+        const loadingScreen = document.getElementById('loading-screen');
+        const mainContent = document.getElementById('main-content');
+        const islamicDateEl = document.getElementById('islamic-date');
+        const locationEl = document.getElementById('location');
+        const nextPrayerNameEl = document.getElementById('next-prayer-name');
+        const countdownTimerEl = document.getElementById('countdown-timer');
+
+        // Prayer time elements for the Salah view
+        const salahPrayerTimeElements = { 
+            Fajr: document.querySelector('#salah-fajr span:last-child'), 
+            Sunrise: document.querySelector('#salah-sunrise span:last-child'), 
+            Dhuhr: document.querySelector('#salah-dhuhr span:last-child'), 
+            Asr: document.querySelector('#salah-asr span:last-child'), 
+            Maghrib: document.querySelector('#salah-maghrib span:last-child'), 
+            Isha: document.querySelector('#salah-isha span:last-child') 
+        };
+
+        const views = { 
+            home: document.getElementById('home-view'), 
+            qibla: document.getElementById('qibla-view'), 
+            quran: document.getElementById('quran-view'), 
+            salah: document.getElementById('salah-view'), 
+            naat: document.getElementById('naat-view'),
+            tasbeeh: document.getElementById('tasbeeh-view'), 
+            settings: document.getElementById('settings-view') 
+        };
+        const qiblaDirectionEl = document.getElementById('qibla-direction');
+        const qiblaMarker = document.getElementById('qibla-marker');
+        
+        // Quran Audio and Text elements (updated for the new system)
+        const quranSurahList = document.getElementById('quran-surah-list');
+        const quranPlayer = document.getElementById('quran-player');
+        const quranAudioPlayer = document.getElementById('quran-audio-player');
+        const currentSurahName = document.getElementById('current-surah-name');
+        // Removed quranReadingContent as it's not used in the new Quran system for text display
+
+        // Home page radio player elements
+        const radioPlayer = document.getElementById('radioPlayer'); 
+        const radioPlayPauseButton = document.getElementById('radio-play-pause-button'); 
+        const radioStatusMessage = document.getElementById('radio-status-message'); 
+
+        // Separate audio elements for different azans
+        const azanFajrAudio = document.getElementById('azan-fajr-audio');
+        const azanOtherAudio = document.getElementById('azan-other-audio');
+
+        const settingsSavedMessage = document.getElementById('settings-saved-message');
+        const azanPlayFailedMessage = document.getElementById('azan-play-failed-message');
+
+        // Naat player buttons
+        const tvPauseButton = document.getElementById('tv-pause-button');
+
+        // PWA Install button and fallback message
+        const installAppButton = document.getElementById('install-app-button');
+        const installAppFallback = document.getElementById('install-app-fallback');
+        let deferredPrompt; 
+
+        let countdownInterval;
+        let userCoords = { latitude: null, longitude: null }; 
+        let qiblaAngle = null; 
+        let settings = { azanNotification: 'notification' }; // Default to notification only
+        let youtubePlayer; 
+        let tasbeehCount = 0; 
+        const tasbeehCounterDisplay = document.getElementById('tasbeeh-counter-display'); 
+        let allSurahs = []; // To store the list of all Surahs (used by new Quran system)
+        let currentPlayingQuranElement = null; // To track the currently playing surah element (for audio)
+        let currentSurahIndex = -1; // To keep track of the currently playing surah's index for audio playback
+        let quranLoaded = false; // Flag to track if Quran list has been loaded
+
+        // --- Core Functions ---
+
+        async function initializeApp() {
+            loadSettings();
+            
+            // Get user location automatically
+            getLocation(async (loc) => {
+                userCoords.latitude = loc.latitude;
+                userCoords.longitude = loc.longitude;
+                // Reverse geocode to get city/country for display
+                try {
+                    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${loc.latitude}&lon=${loc.longitude}`);
+                    if (!response.ok) {
+                        throw new Error(`Reverse geocoding API request failed with status ${response.status}`);
+                    }
+                    const data = await response.json();
+                    const city = data.address.city || data.address.town || data.address.village || 'Unknown City';
+                    const country = data.address.country || 'Unknown Country';
+                    locationEl.textContent = `${city}, ${country} (via ${loc.method})`;
+                } catch (error) {
+                    locationEl.textContent = `Location detected (via ${loc.method}), but city name unknown or geocoding failed.`;
+                    console.error("Error reverse geocoding:", error);
+                    showTemporaryMessage(`Could not determine city name.`, true);
+                }
+                await getPrayerTimes(userCoords.latitude, userCoords.longitude);
+                await getQiblaDirection(userCoords.latitude, userCoords.longitude);
+            });
+
+            // Removed loadAllSurahs() from here; it will be called when Quran view is first opened
+            hideLoading(); // Hide loading screen once initial data is fetched
+            showView('home'); // Show home view once loaded
+            
+            // Attempt to play Ramadhan Radio on load (if not already playing)
+            // This is still subject to browser autoplay policies
+            if (radioPlayer.paused) {
+                try {
+                    await radioPlayer.play();
+                    radioPlayPauseButton.textContent = "Pause Ramadhan World Radio";
+                    radioStatusMessage.classList.add('hidden');
+                    console.log("Ramadhan Radio playing.");
+                } catch (e) {
+                    console.warn("Autoplay prevented for Ramadhan Radio:", e);
+                    // Removed the specific "Autoplay blocked..." message from display
+                    radioPlayPauseButton.textContent = "Play Ramadhan World Radio"; // Ensure button says Play
+                }
+            }
+            loadTasbeehCount(); // Load tasbeeh count on app initialization
+        }
+
+        // Updated getLocation function to use ipinfo.io
+        function getLocation(callback) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        callback({
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                            method: "GPS"
+                        });
+                    },
+                    error => {
+                        // If denied or failed, fallback to IP using ipinfo.io
+                        fetch("https://ipinfo.io/json")
+                            .then(res => {
+                                if (!res.ok) {
+                                    throw new Error(`IP API request failed with status ${res.status}`);
+                                }
+                                return res.json();
+                            })
+                            .then(data => {
+                                const [lat, lon] = data.loc.split(',');
+                                callback({
+                                    latitude: parseFloat(lat),
+                                    longitude: parseFloat(lon),
+                                    method: "IP (ipinfo.io)"
+                                });
+                            })
+                            .catch(e => {
+                                console.error("IP API fetch failed:", e);
+                                // Fallback to Karachi if IP API also fails
+                                callback({ latitude: 24.8607, longitude: 67.0011, method: "Default (Karachi)" }); 
+                                locationEl.textContent = "Location detection failed. Showing times for Karachi, Pakistan.";
+                                showTemporaryMessage("Location detection failed. Showing times for Karachi, Pakistan.", true);
+                            });
+                    }
+                );
+            } else {
+                // No geolocation, fallback to IP using ipinfo.io
+                fetch("https://ipinfo.io/json")
+                    .then(res => {
+                        if (!res.ok) {
+                            throw new Error(`IP API request failed with status ${res.status}`);
+                        }
+                        return res.json();
+                    })
+                    .then(data => {
+                        const [lat, lon] = data.loc.split(',');
+                        callback({
+                            latitude: parseFloat(lat),
+                            longitude: parseFloat(lon),
+                            method: "IP (ipinfo.io)"
+                        });
+                    })
+                    .catch(e => {
+                        console.error("IP API fetch failed:", e);
+                        // Fallback to Karachi if IP API also fails
+                        callback({ latitude: 24.8607, longitude: 67.0011, method: "Default (Karachi)" }); 
+                        locationEl.textContent = "Location detection failed. Showing times for Karachi, Pakistan.";
+                        showTemporaryMessage("Location detection failed. Showing times for Karachi, Pakistan.", true);
+                    });
+            }
+        }
+
+        async function getPrayerTimes(latitude, longitude) { 
+            try {
+                const date = new Date();
+                const dateString = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+                // Using timings API with latitude and longitude
+                const apiUrl = `https://api.aladhan.com/v1/timings/${dateString}?latitude=${latitude}&longitude=${longitude}&method=2`;
+
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+                const data = await response.json();
+
+                if (data.code === 200) {
+                    displayPrayerTimes(data.data);
+                    updateCountdown(data.data.timings);
+                    // Update Qibla angle
+                    if (data.data.meta && typeof data.data.meta.qibla !== 'undefined') { 
+                        qiblaAngle = data.data.meta.qibla;
+                        qiblaDirectionEl.textContent = `Qibla is at ${qiblaAngle.toFixed(2)}° from North. Rotate your device until the blue line points upwards.`;
+                    } else {
+                        // If not from prayer times API, try fetching from dedicated Qibla API
+                        await getQiblaDirection(latitude, longitude);
+                    }
+                } else {
+                    throw new Error('Could not fetch prayer times from the API.');
+                }
+            } catch (error) {
+                console.error("Error fetching prayer times:", error);
+                locationEl.textContent = `Could not fetch prayer times for current location. Please try again.`;
+                showTemporaryMessage(`Could not fetch prayer times for current location.`, true);
+                // Clear prayer times display
+                for (const prayer in salahPrayerTimeElements) {
+                    if (salahPrayerTimeElements[prayer]) {
+                        salahPrayerTimeElements[prayer].textContent = '--:--';
+                    }
+                }
+                countdownTimerEl.textContent = "N/A";
+                nextPrayerNameEl.textContent = "No Prayer Times";
+            }
+        }
+
+        async function getQiblaDirection(latitude, longitude) {
+            try {
+                const qiblaApiUrl = `https://api.aladhan.com/v1/qibla/${latitude}/${longitude}`;
+                const response = await fetch(qiblaApiUrl);
+                if (!response.ok) {
+                    throw new Error(`Qibla API request failed with status ${response.status}`);
+                }
+                const data = await response.json();
+                if (data.code === 200 && data.data && typeof data.data.direction !== 'undefined') {
+                    qiblaAngle = data.data.direction;
+                    qiblaDirectionEl.textContent = `Qibla is at ${qiblaAngle.toFixed(2)}° from North. Rotate your device until the blue line points upwards.`;
+                } else {
+                    qiblaAngle = null;
+                    console.warn("Qibla direction not found in API response from dedicated Qibla API.");
+                }
+            } catch (error) {
+                qiblaAngle = null;
+                console.error("Error fetching Qibla direction:", error);
+            }
+        }
+        
+        function displayPrayerTimes(data) {
+            const timings = data.timings;
+            islamicDateEl.textContent = `${data.date.hijri.weekday.en}, ${data.date.hijri.day} ${data.date.hijri.month.en} ${data.date.hijri.year}`;
+            
+            for (const prayer in salahPrayerTimeElements) {
+                if (salahPrayerTimeElements[prayer]) {
+                    salahPrayerTimeElements[prayer].textContent = formatTime(timings[prayer]);
+                }
+            }
+        }
+
+        function updateCountdown(timings) {
+            if (countdownInterval) clearInterval(countdownInterval);
+            countdownInterval = setInterval(() => {
+                const now = new Date();
+                const nextPrayer = findNextPrayer(now, timings);
+
+                document.querySelectorAll('.prayer-time').forEach(el => el.classList.remove('active'));
+
+                if (nextPrayer) {
+                    nextPrayerNameEl.textContent = nextPrayer.name;
+                    const prayerTime = new Date(now.toDateString() + ' ' + nextPrayer.time);
+                    const diff = prayerTime.getTime() - now.getTime();
+                    
+                    const nextPrayerElement = document.getElementById(`salah-${nextPrayer.name.toLowerCase()}`);
+                    if (nextPrayerElement) {
+                        nextPrayerElement.classList.add('active');
+                    }
+
+                    if (diff > 0) {
+                        const hours = Math.floor(diff / (1000 * 60 * 60));
+                        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                        countdownTimerEl.textContent = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+
+                        // Trigger notification when countdown hits zero
+                        if (hours === 0 && minutes === 0 && seconds === 0) {
+                            handleAzan(nextPrayer.name, nextPrayer.name === 'Sunrise');
+                        }
+                    } else {
+                        // If countdown has passed for the current prayer, immediately re-fetch times for the current location
+                        if (userCoords.latitude && userCoords.longitude) {
+                            getPrayerTimes(userCoords.latitude, userCoords.longitude);
+                        } else {
+                            // If location not available, stop countdown
+                            clearInterval(countdownInterval);
+                            countdownTimerEl.textContent = "N/A";
+                            nextPrayerNameEl.textContent = "Location Unknown";
+                        }
+                    }
+                } else {
+                    // If all prayers for today have passed, show countdown to Fajr tomorrow
+                    nextPrayerNameEl.textContent = 'Fajr (Tomorrow)';
+                    const fajrTimeToday = timings['Fajr'] ? new Date(now.toDateString() + ' ' + timings['Fajr']) : null;
+                    let fajrTimeTomorrow = null;
+
+                    if (fajrTimeToday) {
+                        fajrTimeTomorrow = new Date(fajrTimeToday);
+                        fajrTimeTomorrow.setDate(fajrTimeTomorrow.getDate() + 1); // Set to tomorrow's Fajr
+                    } else {
+                        // Fallback if Fajr time is not available for some reason
+                        fajrTimeTomorrow = new Date(now);
+                        fajrTimeTomorrow.setDate(fajrTimeTomorrow.getDate() + 1);
+                        fajrTimeTomorrow.setHours(5, 0, 0, 0); // Default to 5 AM tomorrow
+                    }
+
+                    const diff = fajrTimeTomorrow.getTime() - now.getTime();
+                    const hours = Math.floor(diff / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    countdownTimerEl.textContent = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+                }
+            }, 1000);
+        }
+
+        function findNextPrayer(now, timings) {
+            const prayerOrder = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+            for (const prayerName of prayerOrder) {
+                if (timings[prayerName]) {
+                    const prayerTime = new Date(now.toDateString() + ' ' + timings[prayerName]);
+                    if (prayerTime > now) return { name: prayerName, time: timings[prayerName] };
+                }
+            }
+            return null;
+        }
+
+        // --- UI & View Management ---
+
+        function showView(viewName) {
+            // Pause all media when switching views
+            radioPlayer.pause();
+            if (youtubePlayer && typeof youtubePlayer.pauseVideo === 'function') {
+                youtubePlayer.pauseVideo();
+            }
+            azanFajrAudio.pause();
+            azanOtherAudio.pause();
+            quranAudioPlayer.pause();
+
+            Object.values(views).forEach(view => {
+                if (view) { 
+                    view.classList.add('hidden');
+                }
+            });
+
+            if (views[viewName]) { 
+                views[viewName].classList.remove('hidden');
+            }
+            
+            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+            const activeButton = document.querySelector(`.nav-button[onclick="showView('${viewName}')"]`);
+            if (activeButton) { 
+                activeButton.classList.add('active');
+            }
+            
+            // Specific actions for each view
+            if (viewName === 'qibla') {
+                startCompass();
+            } else {
+                stopCompass();
+            }
+
+            if (viewName === 'quran' && !quranLoaded) {
+                populateQuranList();
+                quranLoaded = true;
+                loadLastListenedAudio(); // Load last listened audio when Quran view is first opened
+            }
+
+            if (viewName === 'naat' && youtubePlayer) {
+                // No autoplay, just ensure player is ready for user interaction
+            }
+
+            if (viewName === 'tasbeeh') {
+                loadTasbeehCount();
+            }
+        }
+
+        function hideLoading() {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                mainContent.classList.remove('opacity-0');
+            }, 500);
+        }
+        
+        // --- Qibla Compass ---
+        
+        function startCompass() {
+            if (qiblaAngle === null) {
+                qiblaDirectionEl.textContent = 'Qibla direction unavailable. Location not determined.';
+                console.warn("Qibla angle is null, cannot start compass accurately.");
+                return;
+            }
+
+            // Update initial Qibla direction text
+            qiblaDirectionEl.textContent = `Qibla Direction: ${qiblaAngle.toFixed(2)}° from North. Rotate your device until the blue line points upwards.`;
+
+            if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            window.addEventListener('deviceorientation', handleOrientation);
+                        } else {
+                             qiblaDirectionEl.textContent = "Permission for device orientation not granted.";
+                        }
+                    })
+                    .catch(e => {
+                        console.error("DeviceOrientationEvent permission error:", e);
+                        qiblaDirectionEl.textContent = "Device orientation permission failed.";
+                    });
+            } else if ('ondeviceorientation' in window) {
+                window.addEventListener('deviceorientation', handleOrientation);
+            } else {
+                qiblaDirectionEl.textContent = "Device orientation not supported on this browser.";
+            }
+        }
+        
+        function stopCompass() {
+            window.removeEventListener('deviceorientation', handleOrientation);
+        }
+
+        function handleOrientation(event) {
+            if (qiblaAngle === null) {
+                qiblaDirectionEl.textContent = 'Qibla direction unavailable.';
+                return;
+            }
+
+            let alpha;
+            if (event.webkitCompassHeading) {
+                alpha = event.webkitCompassHeading; 
+            } else if (event.alpha !== null) {
+                alpha = event.alpha; 
+            } else {
+                qiblaDirectionEl.textContent = "Could not get device heading.";
+                return;
+            }
+
+            // Rotate the Qibla marker (blue line) to point towards Qibla relative to the device's current orientation.
+            // The qiblaAngle is the Qibla direction relative to True North.
+            // Alpha is the device's current heading relative to True North.
+            // To make the marker point to Qibla, it needs to rotate by (Qibla Angle - Device Heading).
+            // The SVG is designed to point upwards when rotation is 0.
+            qiblaMarker.style.transform = `rotate(${qiblaAngle - alpha}deg)`;
+
+            qiblaDirectionEl.textContent = `Qibla: ${qiblaAngle.toFixed(2)}° from North. Your device is pointing ${alpha.toFixed(2)}° from North. Rotate until the blue line points upwards.`; 
+        }
+
+
+        // --- Quran Section (All Surahs) ---
+        
+        async function populateQuranList() {
+            try {
+                const response = await fetch('https://api.quran.com/api/v4/chapters');
+                const data = await response.json();
+                allSurahs = data.chapters; 
+
+                displaySurahsInList(allSurahs); 
+            } catch (error) {
+                quranSurahList.innerHTML = `<p class="text-center col-span-full text-red-400">Failed to load Surahs for audio. Please check your internet connection.</p>`;
+                console.error("Error fetching Surahs:", error);
+            }
+        }
+
+        function displaySurahsInList(surahsToDisplay) {
+            quranSurahList.innerHTML = surahsToDisplay.map((surah, index) => `
+                <div class="quran-surah cursor-pointer p-3 rounded-lg flex justify-between items-center bg-gray-800 hover:bg-gray-700 transition"
+                     onclick="playSurah(${surah.id}, '${surah.name_simple}', this, ${index})">
+                    <div>
+                        <p class="font-semibold">${surah.id}. ${surah.name_simple}</p>
+                        <p class="text-sm text-gray-400">${surah.translated_name.name}</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-play text-cyan-400 play-icon"></i>
+                        <i class="fas fa-pause text-cyan-400 pause-icon hidden"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function playSurah(surahId, surahName, element, index, startTime = 0) {
+            try {
+                const response = await fetch(`https://api.quran.com/api/v4/chapter_recitations/7/${surahId}`);
+                const { audio_file } = await response.json();
+
+                if (!audio_file || !audio_file.audio_url) {
+                    console.error(`No audio file found for Surah ID: ${surahId} from quran.com`);
+                    showTemporaryMessage('Could not find audio for this Surah.'); 
+                    return;
+                }
+
+                const audioUrl = audio_file.audio_url;
+
+                if (quranAudioPlayer.src === audioUrl && !quranAudioPlayer.paused && startTime === 0) {
+                    quranAudioPlayer.pause();
+                    if (currentPlayingQuranElement) { 
+                        currentPlayingQuranElement.querySelector('.play-icon').classList.remove('hidden');
+                        currentPlayingQuranElement.querySelector('.pause-icon').classList.add('hidden');
+                    }
+                    currentPlayingQuranElement = null;
+                    currentSurahIndex = -1; 
+                    saveLastListenedAudio(surahId, quranAudioPlayer.currentTime); 
+                } else {
+                    if (currentPlayingQuranElement && currentPlayingQuranElement !== element) {
+                        currentPlayingQuranElement.querySelector('.play-icon').classList.remove('hidden');
+                        currentPlayingQuranElement.querySelector('.pause-icon').classList.add('hidden');
+                    }
+
+                    quranAudioPlayer.src = audioUrl;
+                    quranAudioPlayer.load(); 
+                    quranAudioPlayer.currentTime = startTime; 
+                    currentSurahName.textContent = `Loading: ${surahName}...`;
+                    quranPlayer.classList.remove('hidden');
+
+                    quranAudioPlayer.play().then(() => {
+                        currentSurahName.textContent = surahName;
+                        if (element) { 
+                            element.querySelector('.play-icon').classList.add('hidden');
+                            element.querySelector('.pause-icon').classList.remove('hidden');
+                        }
+                        currentPlayingQuranElement = element;
+                        currentSurahIndex = index; 
+                    }).catch(e => {
+                        console.error("Quran audio play failed:", e);
+                        showTemporaryMessage('Failed to play Surah. Please try again.');
+                        currentSurahName.textContent = `Error playing: ${surahName}`;
+                        if (element) { 
+                            element.querySelector('.play-icon').classList.remove('hidden');
+                            element.querySelector('.pause-icon').classList.add('hidden');
+                        }
+                        currentPlayingQuranElement = null;
+                        currentSurahIndex = -1;
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching Surah audio:", error);
+                showTemporaryMessage('Failed to play Surah. Please try again.'); 
+            }
+        }
+
+        quranAudioPlayer.onended = function() {
+            if (currentPlayingQuranElement) {
+                currentPlayingQuranElement.querySelector('.play-icon').classList.remove('hidden');
+                currentPlayingQuranElement.querySelector('.pause-icon').classList.add('hidden');
+            }
+            if (currentSurahIndex !== -1 && allSurahs[currentSurahIndex]) { // Changed quranChapters to allSurahs
+                saveLastListenedAudio(allSurahs[currentSurahIndex].id, 0); // Changed quranChapters to allSurahs
+            }
+
+            if (allSurahs.length > 0 && currentSurahIndex !== -1) { // Changed quranChapters to allSurahs
+                let nextIndex = currentSurahIndex + 1;
+                if (nextIndex >= allSurahs.length) { // Changed quranChapters to allSurahs
+                    nextIndex = 0; 
+                }
+                
+                const nextSurah = allSurahs[nextIndex]; // Changed quranChapters to allSurahs
+                const nextSurahElement = document.querySelector(`#quran-surah-list div[onclick*="playSurah(${nextSurah.id}"]`);
+                
+                if (nextSurah && nextSurahElement) {
+                    playSurah(nextSurah.id, nextSurah.name_simple, nextSurahElement, nextIndex);
+                } else {
+                    console.warn("Could not find next surah or its element for autoplay.");
+                    currentPlayingQuranElement = null;
+                    currentSurahIndex = -1;
+                    currentSurahName.textContent = "Playback ended.";
+                }
+            } else {
+                currentPlayingQuranElement = null;
+                currentSurahIndex = -1;
+                currentSurahName.textContent = "Playback ended.";
+            }
+        };
+
+        quranAudioPlayer.onpause = function() {
+            if (currentSurahIndex !== -1 && allSurahs[currentSurahIndex]) { // Changed quranChapters to allSurahs
+                saveLastListenedAudio(allSurahs[currentSurahIndex].id, quranAudioPlayer.currentTime); // Changed quranChapters to allSurahs
+            }
+        };
+
+
+        function saveLastListenedAudio(surahId, currentTime) {
+            const lastListened = { surahId: surahId, currentTime: currentTime };
+            localStorage.setItem(LAST_LISTENED_KEY, JSON.stringify(lastListened));
+        }
+
+        function loadLastListenedAudio() {
+            const saved = localStorage.getItem(LAST_LISTENED_KEY);
+            if (saved) {
+                const { surahId, currentTime } = JSON.parse(saved);
+                if (allSurahs.length === 0) { // Changed quranChapters to allSurahs
+                    populateQuranList().then(() => {
+                        const surah = allSurahs.find(s => s.id === surahId); // Changed quranChapters to allSurahs
+                        if (surah) {
+                            // Logic for resuming audio on load can be placed here if needed.
+                        }
+                    }).catch(e => {
+                        console.error("Error populating quran list for last listened audio on load:", e);
+                    });
+                } else {
+                    const surah = allSurahs.find(s => s.id === surahId); // Changed quranChapters to allSurahs
+                    if (surah) {
+                        // Logic for resuming audio on load can be placed here if needed.
+                    }
+                }
+            }
+        }
+
+        function resumeListening() {
+            const saved = localStorage.getItem(LAST_LISTENED_KEY);
+            if (saved) {
+                const { surahId, currentTime } = JSON.parse(saved);
+                const surah = allSurahs.find(s => s.id === surahId); // Changed quranChapters to allSurahs
+                const index = allSurahs.findIndex(s => s.id === surahId); // Changed quranChapters to allSurahs
+                if (surah && index !== -1) {
+                    const surahElement = document.querySelector(`#quran-surah-list div[onclick*="playSurah(${surah.id}"]`);
+                    
+                    showView('quran'); 
+                    playSurah(surah.id, surah.name_simple, surahElement, index, currentTime);
+                } else {
+                    showTemporaryMessage('Could not resume listening. Surah not found.', true);
+                }
+            } else {
+                showTemporaryMessage('No last listening position to resume.', true);
+            }
+        }
+
+        // --- Radio Section (now with explicit Play/Pause button) ---
+        function toggleRadioPlayback() {
+            if (radioPlayer.paused) {
+                radioPlayer.play().then(() => {
+                    radioPlayPauseButton.textContent = "Pause Ramadhan World Radio";
+                    radioStatusMessage.classList.add('hidden');
+                    console.log("Ramadhan Radio playing.");
+                }).catch(e => {
+                    console.error("Error playing Ramadhan Radio:", e);
+                    let errorMessage = "Failed to play radio. Autoplay might be blocked or stream unavailable. ";
+                    if (e.name === "NotAllowedError") {
+                        errorMessage += "Please click the play button on the audio player directly.";
+                    } else if (e.name === "AbortError") {
+                        errorMessage += "Playback was aborted, possibly due to network issues or unsupported format.";
+                    }
+                    radioStatusMessage.textContent = errorMessage;
+                    radioStatusMessage.classList.remove('hidden');
+                    showTemporaryMessage(errorMessage, true);
+                });
+            } else {
+                radioPlayer.pause();
+                radioPlayPauseButton.textContent = "Play Ramadhan World Radio";
+                radioStatusMessage.textContent = "Ramadhan Radio paused.";
+                radioStatusMessage.classList.remove('hidden');
+                console.log("Ramadhan Radio paused.");
+            }
+        }
+
+        // Add event listeners for the radioPlayer to update status messages
+        radioPlayer.addEventListener('play', () => {
+            radioPlayPauseButton.textContent = "Pause Ramadhan World Radio";
+            radioStatusMessage.classList.add('hidden');
+        });
+
+        radioPlayer.addEventListener('pause', () => {
+            radioPlayPauseButton.textContent = "Play Ramadhan World Radio";
+            radioStatusMessage.textContent = "Ramadhan Radio paused.";
+            radioStatusMessage.classList.remove('hidden');
+        });
+
+        radioPlayer.addEventListener('error', (e) => {
+            console.error("Ramadhan Radio Error event:", e);
+            let errorMessage = "Error loading Ramadhan Radio stream. ";
+            if (radioPlayer.error) {
+                switch (radioPlayer.error.code) {
+                    case MediaError.MEDIA_ERR_ABORTED:
+                        errorMessage += "Playback aborted.";
+                        break;
+                    case MediaError.MEDIA_ERR_NETWORK:
+                        errorMessage += "Network error. Please check your internet connection.";
+                        break;
+                    case MediaError.MEDIA_ERR_DECODE:
+                        errorMessage += "Audio decoding error. The format might not be supported.";
+                        break;
+                    case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+                        errorMessage += "The audio source is not supported or cannot be found.";
+                        break;
+                    default:
+                        errorMessage += "An unknown error occurred.";
+                        break;
+                }
+            }
+            radioStatusMessage.textContent = errorMessage;
+            radioStatusMessage.classList.remove('hidden');
+            showTemporaryMessage(errorMessage, true);
+        });
+
+
+        // --- YouTube Naat Section ---
+        function onYouTubeIframeAPIReady() {
+            youtubePlayer = new YT.Player('youtube-player', {
+                height: '360',
+                width: '640',
+                videoId: 'mU72MeSW5Zs', // Specific video ID
+                playerVars: {
+                    'playsinline': 1,
+                    'autoplay': 0, 
+                    'controls': 0, 
+                    'rel': 0, 
+                    'showinfo': 0, 
+                    'modestbranding': 1, 
+                    'listType': 'playlist',
+                    'list': 'PL6b_3Yr67_wFpDJfaZLlMEUP6h5EroJi2' // Playlist ID
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            console.log('YouTube Player is ready.');
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                tvPauseButton.textContent = "Pause"; // Update button text
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                tvPauseButton.textContent = "Play"; // Update button text
+            }
+        }
+
+        function toggleVideoPlayback() {
+            if (youtubePlayer && typeof youtubePlayer.getPlayerState === 'function') {
+                const playerState = youtubePlayer.getPlayerState();
+                if (playerState === YT.PlayerState.PLAYING) {
+                    youtubePlayer.pauseVideo();
+                } else {
+                    youtubePlayer.playVideo();
+                }
+            } else {
+                console.warn("YouTube player not ready or state function not available.");
+            }
+        }
+
+        function nextVideo() {
+            if (youtubePlayer && typeof youtubePlayer.nextVideo === 'function') {
+                youtubePlayer.nextVideo();
+            } else {
+                console.warn("YouTube player not ready or nextVideo function not available.");
+            }
+        }
+
+        function previousVideo() {
+            if (youtubePlayer && typeof youtubePlayer.previousVideo === 'function') {
+                youtubePlayer.previousVideo();
+            } else {
+                console.warn("YouTube player not ready or previousVideo function not available.");
+            }
+        }
+
+        // --- Tasbeeh Counter Functions ---
+        function incrementTasbeeh() {
+            tasbeehCount++;
+            tasbeehCounterDisplay.textContent = tasbeehCount;
+            saveTasbeehCount();
+        }
+
+        function resetTasbeeh() {
+            tasbeehCount = 0;
+            tasbeehCounterDisplay.textContent = tasbeehCount;
+            saveTasbeehCount();
+        }
+
+        function saveTasbeehCount() {
+            localStorage.setItem('tasbeehCount', tasbeehCount);
+        }
+
+        function loadTasbeehCount() {
+            const savedCount = localStorage.getItem('tasbeehCount');
+            if (savedCount !== null) {
+                tasbeehCount = parseInt(savedCount, 10);
+                tasbeehCounterDisplay.textContent = tasbeehCount;
+            }
+        }
+
+        // --- Settings & Notifications ---
+        
+        function saveSettings() {
+            settings.azanNotification = document.querySelector('input[name="azan-notification"]:checked').value;
+            localStorage.setItem('ramadanAppSettings', JSON.stringify(settings));
+            showTemporaryMessage('Settings Saved!');
+        }
+
+        function loadSettings() {
+            const savedSettings = localStorage.getItem('ramadanAppSettings');
+            if (savedSettings) {
+                settings = JSON.parse(savedSettings);
+                const azanRadioInput = document.querySelector(`input[name="azan-notification"][value="${settings.azanNotification}"]`);
+                if (azanRadioInput) {
+                    azanRadioInput.checked = true;
+                }
+            }
+        }
+
+        // Modified handleAzan to respect settings and ignore Sunrise audio
+        function handleAzan(prayerName, isSunrise = false) {
+            if (settings.azanNotification === 'silent') return;
+
+            // Only send notification if not silent and not Sunrise
+            if (!isSunrise) { // Only send notification for non-Sunrise prayers
+                if (Notification.permission === "granted") {
+                    new Notification(`It's ${prayerName} time!`);
+                } else if (Notification.permission !== "denied") {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                            new Notification(`It's ${prayerName} time!`);
+                        }
+                    });
+                }
+            }
+            // Azan audio will NOT play automatically here. It can only be played via testAzanSound().
+        }
+
+        // Function to test Azan sound (user-initiated)
+        function testAzanSound() {
+            azanOtherAudio.play().then(() => {
+                showTemporaryMessage("Azan sound played successfully!");
+            }).catch(e => {
+                console.error("Test Azan sound failed:", e);
+                showTemporaryMessage("Failed to play Azan sound. Browser might require more interaction (e.g., clicking on the page first).", true);
+            });
+        }
+
+        function showTemporaryMessage(message, isError = false) {
+            settingsSavedMessage.textContent = message;
+            if (isError) {
+                settingsSavedMessage.classList.add('bg-red-500');
+                settingsSavedMessage.classList.remove('bg-green-500');
+            } else {
+                settingsSavedMessage.classList.remove('bg-red-500');
+                settingsSavedMessage.classList.add('bg-green-500');
+            }
+            settingsSavedMessage.classList.remove('hidden');
+            settingsSavedMessage.classList.add('show');
+            setTimeout(() => {
+                settingsSavedMessage.classList.remove('show');
+                settingsSavedMessage.classList.add('hidden');
+            }, 5000); 
+        }
+        
+        // --- Utility Functions ---
+
+        function formatTime(time24) {
+            const [hour, minute] = time24.split(':'); 
+            const h = parseInt(hour, 10);
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            const h12 = h % 12 || 12;
+            return `${padZero(h12)}:${minute} ${ampm}`;
+        }
+
+        function padZero(num) {
+            return num < 10 ? '0' + num : num;
+        }
+
+        // --- PWA Installation Logic ---
+        // This event fires when the browser determines that the user can install the PWA.
+        // It's a good place to show your "Install App" button.
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            deferredPrompt = e;
+            // Show the install button
+            installAppButton.classList.remove('hidden');
+            // Hide the fallback message if the button is shown
+            installAppFallback.classList.add('hidden');
+            console.log('beforeinstallprompt fired. PWA install prompt available.');
+        });
+
+        // Event listener for the "Install App" button click
+        installAppButton.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                // Show the install prompt
+                deferredPrompt.prompt();
+                // Wait for the user to respond to the prompt
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response to the install prompt: ${outcome}`);
+                // We've used the prompt, and it can't be used again. Clear it.
+                deferredPrompt = null;
+                // If the user accepts, the appinstalled event will fire. If they dismiss, the button remains visible.
+            } else {
+                // Fallback for browsers that don't support beforeinstallprompt or if it hasn't fired
+                // This message should ideally be hidden if the button is shown.
+                // It's primarily for environments where beforeinstallprompt never fires.
+                installAppFallback.classList.remove('hidden');
+                installAppButton.classList.add('hidden');
+                console.log('PWA installation not directly supported or prompt not available.');
+            }
+        });
+
+        // Event listener for when the app is successfully installed
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA was installed');
+            // Hide the install button as the app is now installed
+            installAppButton.classList.add('hidden'); 
+            // Show a success message to the user
+            showTemporaryMessage('Ramadhan World App installed successfully!');
+        });
+
+        // Fallback for browsers that doesn't support beforeinstallprompt or if it hasn't fired
+        // This runs on initial load to determine if the fallback message should be visible.
+        window.addEventListener('load', () => {
+            if (!('BeforeInstallPromptEvent' in window)) {
+                // If BeforeInstallPromptEvent is not supported, show fallback message
+                installAppFallback.classList.remove('hidden');
+                installAppButton.classList.add('hidden');
+            }
+        });
+
+
+        // --- Initial Load ---
+        window.addEventListener('load', initializeApp);
+
+        // Add event listener for pagehide to pause all media when the user navigates away or closes the tab
+        window.addEventListener('pagehide', () => {
+            radioPlayer.pause();
+            if (youtubePlayer && typeof youtubePlayer.pauseVideo === 'function') {
+                youtubePlayer.pauseVideo();
+            }
+            azanFajrAudio.pause();
+            azanOtherAudio.pause();
+            quranAudioPlayer.pause();
+        });
+
+    </script>
+</body>
+</html>

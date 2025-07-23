@@ -1,0 +1,326 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.card {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.prayer-time.active {
+    background-color: rgba(6, 182, 212, 0.3);
+    border-left-width: 4px;
+    border-color: #06B6D4;
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition for active state */
+}
+.nav-button.active {
+    background-color: #06B6D4;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+/* Qibla Marker styling for the main indicator */
+#qibla-marker {
+    transition: transform 0.5s ease-out;
+    transform-origin: center center; /* Rotate around its center */
+}
+.quran-surah:hover, .radio-station-item:hover, .juz-item:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+.radio-station-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+.radio-station-item.active {
+    background-color: rgba(6, 182, 212, 0.2);
+    border: 1px solid #06B6D4;
+}
+.radio-player-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.radio-player-controls button {
+    background-color: #06B6D4;
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 9999px; /* Full rounded for circular buttons */
+    font-size: 1.25rem;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.radio-player-controls button:hover {
+    background-color: #0891B2;
+    transform: translateY(-2px);
+}
+.radio-player-controls button:active {
+    transform: translateY(0);
+}
+.settings-saved-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #10B981; /* Green for success */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1000;
+}
+.settings-saved-message.show {
+    opacity: 1;
+}
+/* Responsive YouTube iframe */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 0.75rem; /* rounded-lg */
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Qibla Compass Specific Styles */
+#compass {
+    position: relative;
+    width: 256px; /* 64 * 4 */
+    height: 256px; /* 64 * 4 */
+    background-color: #1f2937; /* gray-800 */
+    border-radius: 9999px; /* rounded-full */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid #374151; /* gray-700 */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Cardinal direction markers */
+#compass .direction-marker {
+    position: absolute;
+    font-weight: bold;
+    font-size: 1.25rem; /* text-xl */
+    z-index: 1; /* Ensure markers are above lines */
+}
+#compass .direction-marker.north { top: 8px; left: 50%; transform: translateX(-50%); color: #ef4444; /* red-500 */ }
+#compass .direction-marker.south { bottom: 8px; left: 50%; transform: translateX(-50%); }
+#compass .direction-marker.east { right: 8px; top: 50%; transform: translateY(-50%); }
+#compass .direction-marker.west { left: 8px; top: 50%; transform: translateY(-50%); }
+
+/* Directional lines */
+#compass .direction-line {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.2);
+    z-index: 0;
+}
+#compass .direction-line.vertical {
+    width: 2px;
+    height: 100%;
+}
+#compass .direction-line.horizontal {
+    height: 2px;
+    width: 100%;
+}
+
+/* Qibla Marker SVG styling (blue line) */
+#qibla-marker svg {
+    width: 8px; /* Width of the line, increased for bolder */
+    height: 120px; /* Length of the line, increased for bigger */
+    fill: #06B6D4; /* Cyan color */
+    filter: drop-shadow(0 0 5px rgba(6, 182, 212, 0.7)); /* Subtle glow */
+    /* Position the line to be at the top of the compass, pointing upwards */
+    transform: translateY(-50%); /* Adjust to center the line vertically on the compass */
+}
+#qibla-marker svg path {
+    stroke: #06B6D4; /* Line color */
+    stroke-width: 8px; /* Line thickness, increased for bolder */
+    fill: none; /* No fill for a line */
+}
+
+
+/* Quran reading section styles */
+.quran-text-container {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    text-align: right; /* Right-to-left for Arabic */
+}
+.quran-ayah-group {
+    margin-bottom: 0.25rem; /* Reduced spacing further */
+    padding-bottom: 0.25rem; /* Reduced padding */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    direction: rtl; /* Overall RTL for the group */
+    line-height: 1.6; /* Adjusted for tighter Arabic lines */
+    display: flex; /* Use flexbox for inline Ayah number */
+    flex-wrap: wrap; /* Allow content to wrap */
+    align-items: baseline; /* Align text and number at baseline */
+    justify-content: flex-end; /* Align to the right */
+}
+.quran-ayah-group:last-child {
+    border-bottom: none;
+}
+.arabic-text {
+    font-size: 1.6rem;
+    display: inline; /* Keep Arabic text inline */
+    white-space: pre-wrap; /* Preserve spaces and allow wrapping */
+}
+.ayah-number-inline {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    display: inline-block; /* Keep it as inline-block for positioning */
+    direction: ltr; /* Ensure number is LTR within the RTL flow */
+    margin-left: 0.25rem; /* Small margin to separate from Arabic text */
+    vertical-align: middle; /* Align vertically with text */
+    font-family: 'Times New Roman', serif; /* Often used for traditional ayah numbers */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+.translation-text {
+    display: block;
+    font-size: 0.9rem;
+    color: #a1a1aa;
+    margin-top: 0.25rem; /* Reduced margin */
+    direction: ltr;
+    text-align: left;
+    width: 100%; /* Ensure translation takes full width below Arabic */
+}
+.juz-item {
+    cursor: pointer;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.08);
+    transition: background-color 0.2s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.juz-filter-dropdown {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #374151; /* gray-700 */
+    color: white;
+    border: none;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* High-quality audio player styling */
+#quran-audio-player {
+    width: 100%;
+    background-color: #1f2937; /* Darker background */
+    border-radius: 0.75rem; /* Rounded corners */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    padding: 0.5rem; /* Some internal padding */
+    outline: none; /* Remove default focus outline */
+}
+
+/* Style for the controls within the audio player */
+#quran-audio-player::-webkit-media-controls-panel {
+    background-color: #1f2937; /* Match player background */
+    border-radius: 0.5rem;
+}
+
+#quran-audio-player::-webkit-media-controls-play-button,
+#quran-audio-player::-webkit-media-controls-current-time-display,
+#quran-audio-player::-webkit-media-controls-time-remaining-display,
+#quran-audio-player::-webkit-media-controls-timeline,
+#quran-audio-player::-webkit-media-controls-volume-slider,
+#quran-audio-player::-webkit-media-controls-mute-button,
+#quran-audio-player::-webkit-media-controls-fullscreen-button {
+    color: #06B6D4; /* Cyan color for icons/text */
+}
+
+#quran-audio-player::-webkit-media-controls-timeline {
+    background-color: rgba(6, 182, 212, 0.3); /* Lighter cyan for timeline background */
+    border-radius: 9999px; /* Pill shape */
+}
+
+#quran-audio-player::-webkit-media-controls-play-button {
+    background-color: #06B6D4;
+    border-radius: 9999px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#quran-audio-player::-webkit-media-controls-play-button:hover {
+    background-color: #0891B2;
+}
+
+/* Firefox specific styles */
+#quran-audio-player {
+    -moz-appearance: none;
+    appearance: none;
+}
+#quran-audio-player::-moz-range-track {
+    background-color: rgba(6, 182, 212, 0.3);
+    border-radius: 9999px;
+}
+#quran-audio-player::-moz-range-thumb {
+    background-color: #06B6D4;
+}
+
+/* Tasbeeh Counter Specific Styles */
+#tasbeeh-counter-display {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #06B6D4;
+    margin-bottom: 1rem;
+}
+.tasbeeh-button {
+    background-color: #06B6D4;
+    color: white;
+    padding: 2rem;
+    border-radius: 9999px; /* Circular */
+    font-size: 2rem;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+}
+.tasbeeh-button:hover {
+    background-color: #0891B2;
+    transform: translateY(-2px);
+}
+.tasbeeh-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.reset-button {
+    background-color: #EF4444;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+}
+.reset-button:hover {
+    background-color: #DC2626;
+}
