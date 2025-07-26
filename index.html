@@ -236,8 +236,7 @@
 
     <div id="loading-screen" class="fixed inset-0 bg-gray-900 bg-opacity-90 flex flex-col justify-center items-center z-50 transition-opacity duration-500">
         <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-neon"></div>
-        <p class="mt-4 text-lg">Finding your location & fetching data...</p>
-        <p id="location-prompt" class="mt-2 text-yellow-400 hidden">Please enable location services and refresh.</p>
+        <p class="mt-4 text-lg">Loading App...</p>
     </div>
 
     <div id="main-content" class="min-h-screen container mx-auto p-4 sm:p-6 lg:p-8 opacity-0 transition-opacity duration-1000">
@@ -469,7 +468,6 @@
         const mainContent = document.getElementById('main-content');
         const islamicDateEl = document.getElementById('islamic-date');
         const locationEl = document.getElementById('location');
-        const locationPrompt = document.getElementById('location-prompt');
         const nextPrayerNameEl = document.getElementById('next-prayer-name');
         const countdownTimerEl = document.getElementById('countdown-timer');
         const salahPrayerTimeElements = { Fajr: document.querySelector('#salah-fajr span:last-child'), Sunrise: document.querySelector('#salah-sunrise span:last-child'), Dhuhr: document.querySelector('#salah-dhuhr span:last-child'), Asr: document.querySelector('#salah-asr span:last-child'), Maghrib: document.querySelector('#salah-maghrib span:last-child'), Isha: document.querySelector('#salah-isha span:last-child') };
@@ -512,7 +510,6 @@
 
         const NOTIFICATION_STATUS_KEY = 'ramadanAppNotificationStatus';
         const NOTIFICATION_LOG_KEY = 'ramadanAppNotificationLog';
-        const LAST_HISTORY_NOTIFICATION_KEY = 'ramadanAppLastHistoryNotification';
         const HADITH_CACHE_KEY = 'ramadanAppHadithCache';
         const DUA_LIST_KEY = 'ramadanAppDuaList';
         
@@ -537,6 +534,10 @@
         }
 
         async function initializeApp() {
+            // Show the page immediately
+            hideLoading();
+            
+            // Load all settings and stored data
             document.body.addEventListener('click', unlockAllAudio, { once: true });
             loadSettings();
             loadNotificationStatus();
@@ -545,9 +546,10 @@
             loadTasbeehCount();
             loadDuas();
             setupRadioPlayer();
-            const dataFetchPromises = [ getUserLocation(), fetchHadith() ];
-            await Promise.all(dataFetchPromises);
-            hideLoading();
+            
+            // Fetch location and hadith data in the background
+            getUserLocation();
+            fetchHadith();
         }
 
         function unlockAllAudio() {
@@ -651,7 +653,7 @@
                 }, async (error) => {
                     let message = "Location access failed. Using default times for Karachi.";
                     if (error.code === 1) message = "Location access denied. Using default times for Karachi.";
-                    else if (error.code === 2) { message = "Could not detect your location. Using default times for Karachi."; locationPrompt.classList.remove('hidden'); }
+                    else if (error.code === 2) { message = "Could not detect your location. Using default times for Karachi."; }
                     locationEl.textContent = message;
                     getPrayerTimes("Karachi", "Pakistan").then(prayerData => { if(prayerData) updateCountdown(prayerData.timings); resolve(); });
                 }, { timeout: 10000 });
@@ -731,7 +733,10 @@
 
         function hideLoading() {
             loadingScreen.classList.add('opacity-0');
-            setTimeout(() => { loadingScreen.style.display = 'none'; mainContent.classList.remove('opacity-0'); }, 500);
+            setTimeout(() => { 
+                loadingScreen.style.display = 'none'; 
+                mainContent.classList.remove('opacity-0'); 
+            }, 500);
         }
 
         function startCompass() {
