@@ -44,6 +44,12 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
             box-shadow: 0 0 15px rgba(50, 230, 0, 0.5);
         }
+        .action-btn {
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
         .video-container {
             position: relative;
             width: 100%;
@@ -197,7 +203,6 @@
             margin-top: 1rem;
             margin-bottom: 1.5rem;
         }
-
         audio::-webkit-media-controls-panel {
             background-color: #374151;
         }
@@ -217,16 +222,19 @@
              background-color: rgba(50, 230, 0, 0.2);
             border-radius: 9999px;
         }
-        /* Elegant Glowing Countdown Timer Style */
+        /* More Glowing Countdown Timer Style */
         #countdown-timer {
             font-family: 'Amiri', serif;
             font-size: 4.5rem; 
             font-weight: 700; 
             letter-spacing: 0.05em;
             padding: 0.5rem 0;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 
-                         0 0 10px rgba(50, 230, 0, 0.5), 
-                         0 0 15px rgba(50, 230, 0, 0.5);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 20px #32e600, 0 0 35px #32e600, 0 0 50px #32e600, 0 0 70px #32e600;
+        }
+        /* Highlighted Radio Player Card */
+        #home-radio-section .card {
+            box-shadow: 0 0 15px rgba(50, 230, 0, 0.4), 0 0 25px rgba(50, 230, 0, 0.2);
+            border-color: rgba(50, 230, 0, 0.5);
         }
     </style>
 </head>
@@ -275,7 +283,7 @@
                     <div class="card rounded-2xl p-6 max-w-2xl mx-auto text-center">
                         <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 1rem;">📻 PRESS TO PLAY LIVE RADIO</h2>
                         <audio id="radioPlayer" controls controlslist="nodownload" class="w-full rounded-lg" preload="auto">
-                            <source src="http://hydra.shoutca.st:8550/;" type="audio/mpeg" />
+                            <source src="https://ramadhan786.radioca.st/;" type="audio/mpeg" />
                             Your browser does not support the audio element.
                         </audio>
                     </div>
@@ -339,16 +347,17 @@
                     <p class="text-sm text-gray-400 mt-2">(Accuracy depends on your device's hardware and browser support)</p>
                 </div>
             </div>
-            
+
             <!-- Listen Quran View -->
             <div id="listen-quran-view" class="hidden">
-                <div class="card rounded-2xl p-6 max-w-4xl mx-auto">
+                 <div class="card rounded-2xl p-6 max-w-4xl mx-auto">
                     <h2 class="text-2xl mb-4 text-center">Holy Quran Recitation</h2>
+                    <p class="text-center text-gray-400 mb-4">Recitation by Abdurrahmaan As-Sudais</p>
                     <div id="quran-player" class="text-center hidden">
                         <h3 id="current-surah-name" class="text-xl mb-2 text-neon"></h3>
                         <audio id="quran-audio-player" controls controlslist="nodownload" class="w-full rounded-lg"></audio>
                     </div>
-                    <div id="quran-loading-indicator" class="text-center py-8">
+                    <div id="quran-loading-indicator" class="text-center py-8 hidden">
                         <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-neon mx-auto"></div>
                         <p class="mt-4 text-lg">Loading Surahs...</p>
                     </div>
@@ -432,7 +441,6 @@
 
     <audio id="azan-fajr-audio" src="fajr.mp3" preload="auto"></audio>
     <audio id="azan-other-audio" src="other salah.mp3" preload="auto"></audio>
-    <audio id="sms-tune-audio" src="data:audio/mpeg;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT19OaWNlIGZlZWwgYmVhdCBvZiB0aGUgbW9kZXJuIHdvcmxkLiBDb250YWN0IG1lIGF0ICtrZDUyNjU2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NkZWZpbml0ZWx5IG5vdCBhIHZpcnVz" preload="auto"></audio>
     <div id="settings-saved-message" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-50"></div>
     
     <script src="https://www.youtube.com/iframe_api"></script>
@@ -450,15 +458,14 @@
         const views = { home: document.getElementById('home-view'), qibla: document.getElementById('qibla-view'), listenQuran: document.getElementById('listen-quran-view'), salah: document.getElementById('salah-view'), tasbeeh: document.getElementById('tasbeeh-view'), naat: document.getElementById('naat-view'), calendar: document.getElementById('calendar-view'), settings: document.getElementById('settings-view'), dua: document.getElementById('dua-view') };
         const qiblaDirectionEl = document.getElementById('qibla-direction');
         const qiblaLine = document.getElementById('qibla-line');
-        const radioPlayer = document.getElementById('radioPlayer');
         const quranSurahList = document.getElementById('quran-surah-list');
         const quranLoadingIndicator = document.getElementById('quran-loading-indicator');
         const quranPlayer = document.getElementById('quran-player');
         const quranAudioPlayer = document.getElementById('quran-audio-player');
+        const radioPlayer = document.getElementById('radioPlayer');
         const currentSurahName = document.getElementById('current-surah-name');
         const azanFajrAudio = document.getElementById('azan-fajr-audio');
         const azanOtherAudio = document.getElementById('azan-other-audio');
-        const smsTuneAudio = document.getElementById('sms-tune-audio');
         const settingsSavedMessage = document.getElementById('settings-saved-message');
         const tvPlayButton = document.getElementById('tv-play-button');
         const tvPauseButton = document.getElementById('tv-pause-button');
@@ -520,7 +527,7 @@
 
         function unlockAllAudio() {
             if (audioUnlocked) return;
-            [azanFajrAudio, azanOtherAudio, smsTuneAudio, quranAudioPlayer, radioPlayer].forEach(audio => {
+            [azanFajrAudio, azanOtherAudio, quranAudioPlayer, radioPlayer].forEach(audio => {
                 if (audio) {
                     audio.muted = true;
                     const playPromise = audio.play();
@@ -827,13 +834,7 @@
 
         function setupRadioPlayer() {
             radioPlayer.addEventListener('play', () => {
-                radioPlayer.volume = 1.0;
                 manageAudioPlayback('radio');
-            });
-            radioPlayer.addEventListener('pause', () => {
-                if(intendedAudioSource === 'radio') {
-                    intendedAudioSource = null;
-                }
             });
         }
         
