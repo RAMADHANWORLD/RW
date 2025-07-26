@@ -548,8 +548,8 @@
             setupRadioPlayer();
             
             // Fetch location and hadith data in the background
-            await getUserLocation();
-            await fetchHadith();
+            getUserLocation();
+            fetchHadith();
         }
 
         function unlockAllAudio() {
@@ -631,59 +631,32 @@
             return (Math.atan2(y, x) * (180 / Math.PI) + 360) % 360;
         }
 
-        async function getLocationByIp() {
-            locationEl.textContent = "Estimating location from network...";
-            try {
-                const response = await fetch('https://ip-api.com/json');
-                if (!response.ok) throw new Error('IP API response not OK');
-                const data = await response.json();
-                if (data.status === 'success') {
-                    const { city, country } = data;
-                    locationEl.textContent = `${city}, ${country}`;
-                    const prayerData = await getPrayerTimes(city, country);
-                    if (prayerData) updateCountdown(prayerData.timings);
-                } else {
-                    throw new Error('IP API returned failure status');
-                }
-            } catch (error) {
-                console.error("IP Geolocation failed:", error);
-                locationEl.textContent = "Could not determine location. Using default.";
-                const prayerData = await getPrayerTimes("Karachi", "Pakistan");
-                if (prayerData) updateCountdown(prayerData.timings);
-            }
-        }
-
         function getUserLocation() {
             return new Promise((resolve) => {
                 if (!navigator.geolocation) {
-                    getLocationByIp().then(resolve);
+                    locationEl.textContent = "Geolocation is not supported. Using default times.";
+                    getPrayerTimes("Karachi", "Pakistan").then(prayerData => { if(prayerData) updateCountdown(prayerData.timings); resolve(); });
                     return;
                 }
-                navigator.geolocation.getCurrentPosition(
-                    async (position) => {
-                        userCoords = { latitude: position.coords.latitude, longitude: position.coords.longitude };
-                        qiblaAngle = calculateQiblaDirection(userCoords.latitude, userCoords.longitude);
-                        try {
-                            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userCoords.latitude}&lon=${userCoords.longitude}`);
-                            const data = await response.json();
-                            const city = data.address.city || data.address.town || 'Unknown City';
-                            const country = data.address.country || 'Unknown Country';
-                            locationEl.textContent = `${city}, ${country}`;
-                            const prayerData = await getPrayerTimes(city, country);
-                            if (prayerData) updateCountdown(prayerData.timings);
-                        } catch (error) {
-                            console.error("Reverse geocoding failed, using IP fallback:", error);
-                            await getLocationByIp();
-                        }
-                        resolve();
-                    },
-                    async (error) => {
-                        console.warn(`Geolocation error (${error.code}): ${error.message}. Falling back to IP.`);
-                        await getLocationByIp();
-                        resolve();
-                    },
-                    { timeout: 8000 }
-                );
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    userCoords = { latitude: position.coords.latitude, longitude: position.coords.longitude };
+                    qiblaAngle = calculateQiblaDirection(userCoords.latitude, userCoords.longitude);
+                    try {
+                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userCoords.latitude}&lon=${userCoords.longitude}`);
+                        const data = await response.json();
+                        const city = data.address.city || data.address.town || 'Unknown', country = data.address.country || 'Country';
+                        locationEl.textContent = `${city}, ${country}`;
+                        getPrayerTimes(city, country).then(prayerData => { if(prayerData) updateCountdown(prayerData.timings); resolve(); });
+                    } catch (error) {
+                        getPrayerTimes("Karachi", "Pakistan").then(prayerData => { if(prayerData) updateCountdown(prayerData.timings); resolve(); });
+                    }
+                }, async (error) => {
+                    let message = "Location access failed. Using default times for Karachi.";
+                    if (error.code === 1) message = "Location access denied. Using default times for Karachi.";
+                    else if (error.code === 2) { message = "Could not detect your location. Using default times for Karachi."; }
+                    locationEl.textContent = message;
+                    getPrayerTimes("Karachi", "Pakistan").then(prayerData => { if(prayerData) updateCountdown(prayerData.timings); resolve(); });
+                }, { timeout: 10000 });
             });
         }
 
