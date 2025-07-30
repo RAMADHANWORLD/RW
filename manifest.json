@@ -1,29 +1,21 @@
 {
-  "icons": [
-    {
-      "sizes": "80x80",
-      "type": "image/png",
-      "src": "https://i.ibb.co/v46P5G1q/ART-WORKS-80-x-80-px.png"
-    },
-    {
-      "sizes": "192x192",
-      "type": "image/png",
-      "src": "https://placehold.co/192x192/374151/ffffff?text=App+Icon",
-      "purpose": "any maskable"
-    },
-    {
-      "sizes": "512x512",
-      "type": "image/png",
-      "src": "https://placehold.co/512x512/374511/ffffff?text=App+Icon",
-      "purpose": "any maskable"
-    }
-  ],
-  "description": "Your daily companion for Ramadhan and Islamic practices.",
-  "display": "standalone",
   "name": "Ramadhan World App",
   "short_name": "RamadhanApp",
-  "start_url": "/RADIORAMADHAN/index.html",
-  "theme_color": "#06B6D4BC3D4",
-  "background_color": "#111827",
-  "orientation": "portrait-primary"
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f5132",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://www.ramadhanworld.com/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.ramadhanworld.com/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
