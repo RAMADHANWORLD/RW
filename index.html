@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Ramadhan World - Islamic Prayer Times, Quran, Qibla</title>
-    <!-- Viewport updated to allow zoom for accessibility -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="All-in-one Islamic web app with prayer times (Salah), Qibla compass, Quran player, Tasbeeh counter, Hijri calendar, and live Islamic radio. Your daily companion for Islamic practices.">
     <meta name="keywords" content="islamic app, prayer times, salah, quran, qibla, tasbeeh, ramadan, hijri calendar, islamic radio, muslim, adhan, azan">
@@ -24,12 +23,13 @@
     <meta property="twitter:image" content="https://i.ibb.co/Zp0bgjsS/ART-WORKS-1.png">
     
     <!-- Preconnect to critical origins for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://api.aladhan.com">
     <link rel="preconnect" href="https://api.quran.com">
     <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="preconnect" href="https://static.doubleclick.net">
     <link rel="preconnect" href="https://fundingchoicesmessages.google.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
     <!-- Google tag (gtag.js) - Deferred -->
@@ -43,14 +43,16 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Optimized Font Loading with font-display: swap -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Async loading for Font Awesome CSS -->
+    <!-- FIX: Defer non-critical CSS to prevent render-blocking -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     
-    <!-- Minified Inline CSS with NEW UX and Accessibility Fixes -->
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
+    
+    <!-- Minified Inline CSS with UX and Accessibility Fixes -->
     <style>
     body{font-family:'Cairo','Inter',sans-serif;-webkit-tap-highlight-color:transparent;background:linear-gradient(to bottom,#0a192f,#113a3b);color:#e6f1ff;touch-action:manipulation;-ms-touch-action:manipulation;-webkit-user-select:none;user-select:none}
     button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
@@ -92,7 +94,7 @@
     <div id="main-content" class="min-h-screen container mx-auto p-4 sm:p-6 lg:p-8 opacity-0 transition-opacity duration-1000">
         <!-- Header Section -->
         <header class="text-center mb-6">
-            <img id="app-logo" src="https://i.ibb.co/Zp0bgjsS/ART-WORKS-1.png" alt="Ramadhan World App Logo" class="w-[200px] h-[200px] mx-auto mb-4 rounded-full shadow-lg object-contain" fetchpriority="high" loading="lazy">
+            <img id="app-logo" src="https://i.ibb.co/Zp0bgjsS/ART-WORKS-1.png" alt="Ramadhan World App Logo" class="w-[200px] h-[200px] mx-auto mb-4 rounded-full shadow-lg object-contain" fetchpriority="high" loading="lazy" decoding="async">
             <h1 class="text-4xl sm:text-5xl font-extrabold" style="color: #39FF14;">Ramadhan World</h1>
             <p id="islamic-date" class="text-lg text-gray-300 mt-2">Loading Islamic Date...</p>
             <p id="location" class="text-md text-gray-400 mt-1">Fetching location...</p>
@@ -241,7 +243,7 @@
                             <span class="font-semibold text-lg">Sehri End</span>
                             <span class="text-xl font-mono">--:--</span>
                         </div>
-                        <div id="salah-iftar" class="card rounded-xl p-4 flex justify-between items-center bg-yellow-800 border-l-4 border-yellow-400">
+                        <div id="salah-iftar" class="card rounded-2xl p-4 flex justify-between items-center bg-yellow-800 border-l-4 border-yellow-400">
                             <span class="font-semibold text-lg">Iftar</span>
                             <span class="text-xl font-mono">--:--</span>
                         </div>
