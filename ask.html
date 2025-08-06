@@ -2,131 +2,302 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ask Islam AI - Ramadhan World</title>
+    <title>Ask Islam - AI Powered Q&A</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Get answers to your Islamic questions from our AI assistant, powered by advanced language models and based on authentic sources.">
-    <link rel="canonical" href="https://www.ramadhanworld.com/ask.html">
-    <!-- Common Head Content (CSS, Fonts, etc.) -->
-    <link rel="icon" href="https://i.ibb.co/Zp0bgjsS/ART-WORKS-1.png" type="image/png">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="description" content="Your questions about Islam, answered by AI according to Islamic teachings. Features text and voice Q&A.">
+    <meta name="keywords" content="islamic qa, ask islam, ai islam, quran, hadith, islamic teachings">
+    <meta name="theme-color" content="#0a192f">
+
+    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap">
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts for Arabic and general text -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap">
+
     <style>
-    :root {--primary-dark: #0a192f;--secondary-dark: #113a3b;--accent-green: #39FF14;--text-light: #e6f1ff;--text-muted: #a7f3d0;--card-bg: rgba(10, 25, 47, 0.85);--card-border: rgba(57, 255, 20, 0.2);}
-    body{font-family:'Cairo','Inter',sans-serif;background:linear-gradient(to bottom,var(--primary-dark),var(--secondary-dark));color:var(--text-light);-webkit-tap-highlight-color:transparent}
-    .card{background-color:var(--card-bg);backdrop-filter:blur(10px);border:1px solid var(--card-border);box-shadow:0 8px 32px 0 rgba(0,0,0,0.37)}
-    .nav-button.active{background-color:#39FF14;color:#0a192f;font-weight:700;box-shadow:0 4px 14px rgba(57,255,20,.4)}
-    .nav-button:hover{background-color:rgba(57,255,20,.8);color:#000}
-    .chat-container{flex:1;overflow-y:auto;padding:1rem;padding-bottom:9rem}
-    .message{max-width:80%;padding:0.75rem 1rem;border-radius:0.75rem;margin-bottom:0.75rem;box-shadow:0 4px 15px rgba(0,0,0,0.2);opacity:0;transform:translateY(20px);animation:slide-in 0.3s forwards}
-    @keyframes slide-in{to{opacity:1;transform:translateY(0)}}
-    .user-message{background-color:var(--secondary-dark);color:var(--text-light);border-radius:0.75rem 0.75rem 0 0.75rem;align-self:flex-end;border:1px solid var(--card-border)}
-    .ai-message{background-color:var(--card-bg);color:var(--text-light);border-radius:0.75rem 0.75rem 0.75rem 0;align-self:flex-start;border:1px solid var(--card-border)}
-    .ai-message p{white-space:pre-wrap;font-family:'Amiri',serif;font-size:1.1rem;line-height:1.8}
-    .input-bar{background:rgba(10,25,47,0.8);backdrop-filter:blur(10px);border-top:1px solid var(--card-border)}
-    .chat-input{background-color:#1f2937;border:1px solid #374151;color:#fff;border-radius:9999px;padding:0.65rem 1rem;transition:all 0.2s ease}
-    .chat-input:focus{outline:none;border-color:var(--accent-green);box-shadow:0 0 0 2px rgba(57,255,20,0.5)}
-    .control-button{background-color:var(--accent-green);color:var(--primary-dark);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;box-shadow:0 4px 14px rgba(57,255,20,0.4)}
-    .control-button:hover{transform:scale(1.1)}
-    .control-button:disabled{opacity:0.5;cursor:not-allowed;transform:scale(1);box-shadow:none}
-    .mic-button{background-color:#374151;color:white}
-    .mic-button.recording{background-color:#ef4444;animation:pulse 1.5s infinite}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(239,68,68,0.7)}70%{box-shadow:0 0 0 10px rgba(239,68,68,0)}100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}}
-    .loading-dots .dot{width:8px;height:8px;background-color:var(--text-muted);border-radius:50%;animation:bounce 1.4s infinite ease-in-out both}
-    .loading-dots .dot:nth-child(1){animation-delay:-0.32s}
-    .loading-dots .dot:nth-child(2){animation-delay:-0.16s}
-    @keyframes bounce{0%,80%,100%{transform:scale(0)}40%{transform:scale(1.0)}}
-    .audio-player-button{padding:0.5rem;background-color:var(--accent-green);color:var(--primary-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(57,255,20,0.3);cursor:pointer;transition:transform 0.2s}
-    .audio-player-button:hover{transform:scale(1.1)}
-    .audio-generating-spinner{animation:spin 1s linear infinite}
-    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-    .arabic-text{direction:rtl;unicode-bidi:embed;text-align:right;text-decoration:underline;text-decoration-color:var(--accent-green);text-underline-offset:4px}
+        /* Custom CSS variables for consistent theming */
+        :root {
+            --primary-dark: #0a192f;
+            --secondary-dark: #113a3b;
+            --accent-green: #39FF14;
+            --text-light: #e6f1ff;
+            --text-muted: #a7f3d0;
+            --card-bg: rgba(10, 25, 47, 0.85);
+            --card-border: rgba(57, 255, 20, 0.2);
+        }
+
+        /* Body styling with gradient background and default font */
+        body {
+            font-family: 'Cairo', 'Inter', sans-serif;
+            background: linear-gradient(to bottom, var(--primary-dark), var(--secondary-dark));
+            color: var(--text-light);
+            -webkit-tap-highlight-color: transparent; /* Removes tap highlight on mobile */
+        }
+
+        /* Card-like styling for messages with blur effect */
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Chat container for scrollable messages */
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            padding-bottom: 9rem; /* Space for the fixed input bar */
+        }
+        
+        /* Base message styling with animation */
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slide-in 0.3s forwards; /* Animation for new messages */
+        }
+
+        /* Keyframe for slide-in animation */
+        @keyframes slide-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Styling for user messages */
+        .user-message {
+            background-color: var(--secondary-dark);
+            color: var(--text-light);
+            border-radius: 0.75rem 0.75rem 0 0.75rem;
+            align-self: flex-end; /* Aligns to the right */
+            border: 1px solid var(--card-border);
+        }
+
+        /* Styling for AI messages */
+        .ai-message {
+            background-color: var(--card-bg);
+            color: var(--text-light);
+            border-radius: 0.75rem 0.75rem 0.75rem 0;
+            align-self: flex-start; /* Aligns to the left */
+            border: 1px solid var(--card-border);
+        }
+        
+        /* Font styling for AI message content */
+        .ai-message p {
+            white-space: pre-wrap; /* Preserves whitespace and line breaks */
+            font-family: 'Amiri', serif; /* Specific font for AI responses */
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Input bar styling (fixed at bottom) */
+        .input-bar {
+            background: rgba(10, 25, 47, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--card-border);
+        }
+
+        /* Chat input field styling */
+        .chat-input {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            color: #fff;
+            border-radius: 9999px; /* Fully rounded */
+            padding: 0.65rem 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        /* Focus state for chat input */
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 2px rgba(57, 255, 20, 0.5);
+        }
+        
+        /* Styling for control buttons (send, mic) */
+        .control-button {
+            background-color: var(--accent-green);
+            color: var(--primary-dark);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(57, 255, 20, 0.4);
+        }
+        
+        /* Hover effect for control buttons */
+        .control-button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Disabled state for control buttons */
+        .control-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: scale(1);
+            box-shadow: none;
+        }
+
+        /* Specific styling for microphone button */
+        .mic-button {
+            background-color: #374151;
+            color: white;
+        }
+
+        /* Recording state for microphone button with pulse animation */
+        .mic-button.recording {
+            background-color: #ef4444; /* Red for recording */
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Keyframe for pulse animation */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        
+        /* Loading dots animation */
+        .loading-dots .dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-muted);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .loading-dots .dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots .dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        /* Keyframe for bounce animation */
+        @keyframes bounce {
+          0%, 80%, 100% { transform: scale(0); }
+          40% { transform: scale(1.0); }
+        }
+        
+        /* Audio player button styling */
+        .audio-player-button {
+            padding: 0.5rem;
+            background-color: var(--accent-green);
+            color: var(--primary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(57, 255, 20, 0.3);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .audio-player-button:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Spinner for audio generation */
+        .audio-generating-spinner {
+            animation: spin 1s linear infinite;
+        }
+        /* Keyframe for spin animation */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Styling for Arabic text to ensure right-to-left underline */
+        .arabic-text {
+            direction: rtl;
+            unicode-bidi: embed;
+            text-align: right;
+            text-decoration: underline;
+            text-decoration-color: var(--accent-green); /* Optional: make underline green */
+            text-underline-offset: 4px; /* Adjust as needed */
+        }
+
     </style>
 </head>
-<body class="bg-gray-900 text-white flex flex-col h-screen">
+<body class="flex flex-col h-screen">
 
-    <div id="main-content" class="flex flex-col flex-grow">
-        <!-- Header Section -->
-        <header class="text-center mb-6 pt-4 px-4">
-            <a href="index.html"><img id="app-logo" src="https://i.ibb.co/Zp0bgjsS/ART-WORKS-1.png" alt="Ramadhan World App Logo" class="w-24 h-24 mx-auto mb-2 rounded-full shadow-lg object-contain"></a>
-            <h1 class="text-3xl font-extrabold" style="color: #39FF14;">Ask Islam</h1>
-        </header>
+    <header class="p-4 shadow-lg z-10 text-white" style="background: linear-gradient(90deg, rgba(12, 28, 50, 0.9) 0%, rgba(17, 58, 59, 0.9) 100%); border-bottom: 1px solid var(--card-border);">
+        <h1 class="text-2xl font-bold text-center" style="color: var(--accent-green); text-shadow: 0 0 8px rgba(57,255,20,0.7);">Ask Islam</h1>
+        <p class="text-sm text-center opacity-90 text-gray-300">Your questions answered according to Islamic teachings.</p>
+    </header>
 
-        <!-- Navigation -->
-        <nav class="flex justify-center gap-2 mb-6 flex-wrap items-center px-4">
-            <a href="index.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🏠 Home</a>
-            <a href="salah.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🕌 Salah</a>
-            <a href="quran.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📖 Quran</a>
-            <a href="radio.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📻 Radio</a>
-            <a href="ask.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">💬 Ask Islam</a>
-            <a href="tasbeeh.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📿 Tasbeeh</a>
-            <a href="hadith.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📜 Hadith</a>
-            <a href="naat.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🎵 Naat</a>
-            <a href="qibla.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🧭 Qibla</a>
-            <a href="calendar.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🗓️ Calendar</a>
-            <a href="settings.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">⚙️ Settings</a>
-        </nav>
+    <main id="chat-container" class="chat-container flex flex-col space-y-4">
+        <!-- Messages will be injected here -->
+        <div id="welcome-message" class="text-center text-gray-400 mt-10">
+            <i class="fas fa-moon text-4xl mb-2" style="color: var(--accent-green);"></i>
+            <p class="text-lg">Welcome! Ask me anything about Islam.</p>
+        </div>
+    </main>
 
-        <!-- Main Content -->
-        <main class="flex-grow flex flex-col">
-             <div class="card p-0 flex flex-col flex-grow mx-4 mb-4" style="max-width: 960px; margin: auto;">
-                <header class="p-4 shadow-lg z-10 text-white" style="background: linear-gradient(90deg, rgba(12, 28, 50, 0.9) 0%, rgba(17, 58, 59, 0.9) 100%); border-bottom: 1px solid var(--card-border); border-radius: .75rem .75rem 0 0;">
-                    <p class="text-sm text-center opacity-90 text-gray-300">Your questions answered according to Islamic teachings.</p>
-                </header>
-
-                <main id="chat-container" class="chat-container flex flex-col space-y-4">
-                    <div id="welcome-message" class="text-center text-gray-400 mt-10">
-                        <i class="fas fa-moon text-4xl mb-2" style="color: var(--accent-green);"></i>
-                        <p class="text-lg">Welcome! Ask me anything about Islam.</p>
-                    </div>
-                </main>
-
-                <div class="p-3 sm:p-4 input-bar" style="border-top: 1px solid var(--card-border); background: rgba(10, 25, 47, 0.9);">
-                    <div class="container mx-auto flex items-center space-x-2">
-                        <input type="text" id="chat-input" placeholder="Type your question..." class="flex-1 chat-input focus:outline-none" />
-                        <button id="mic-button" class="control-button mic-button" aria-label="Start recording">
-                            <i class="fas fa-microphone"></i>
-                        </button>
-                        <button id="send-button" class="control-button" aria-label="Send message">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </main>
-        
-        <!-- Footer -->
-        <footer class="text-center p-4 text-sm text-gray-600 space-x-4">
-          <a href="about.html" class="text-blue-600 underline">About</a>
-          <a href="privacy.html" class="text-blue-600 underline">Privacy Policy</a>
-          <a href="contact.html" class="text-blue-600 underline">Contact</a>
-        </footer>
+    <div class="fixed bottom-0 left-0 right-0 p-3 sm:p-4 input-bar">
+        <div class="container mx-auto flex items-center space-x-2">
+            <input type="text" id="chat-input" placeholder="Type your question..." class="flex-1 chat-input focus:outline-none" />
+            <button id="mic-button" class="control-button mic-button" aria-label="Start recording">
+                <i class="fas fa-microphone"></i>
+            </button>
+            <button id="send-button" class="control-button" aria-label="Send message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
     </div>
-    
-    <!-- Scripts -->
+
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // DOM Elements
             const chatContainer = document.getElementById('chat-container');
             const chatInput = document.getElementById('chat-input');
             const sendButton = document.getElementById('send-button');
             const micButton = document.getElementById('mic-button');
             const welcomeMessage = document.getElementById('welcome-message');
-            let messages = [], isLoading = false, isRecording = false, browserSupportsSpeechRecognition = false;
-            let recognitionInstance = null, latestTranscript = '', currentAudio = null, currentlyPlayingId = null;
-            const apiKey = "";
-            const defaultLangCode = 'en-US', defaultTtsVoice = 'Zephyr';
 
+            // State variables
+            let messages = [];
+            let isLoading = false;
+            let isRecording = false;
+            let browserSupportsSpeechRecognition = false;
+            let recognitionInstance = null;
+            let latestTranscript = '';
+            
+            // Audio state
+            let audioContext = null;
+            let currentAudio = null;
+            let currentlyPlayingId = null;
+
+            // API Key for Gemini (Leave as empty string; Canvas will provide at runtime)
+            const apiKey = ""; 
+
+            // Default language and TTS voice
+            const defaultLangCode = 'en-US'; 
+            const defaultTtsVoice = 'Zephyr'; 
+            
+            // --- INITIALIZATION ---
             function initialize() {
                 setupEventListeners();
                 initializeSpeechRecognition();
                 updateButtonStates();
             }
             
+            // Sets up all event listeners for UI elements
             function setupEventListeners() {
                 sendButton.addEventListener('click', () => handleSendMessage());
-                chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSendMessage(); });
-                micButton.addEventListener('click', () => { isRecording ? stopRecording() : startRecording(); });
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') handleSendMessage();
+                });
+                micButton.addEventListener('click', () => {
+                    isRecording ? stopRecording() : startRecording();
+                });
+                // Event delegation for play/pause buttons on AI messages
                 chatContainer.addEventListener('click', async (e) => {
                     const button = e.target.closest('.audio-player-button');
                     if (button) {
@@ -136,18 +307,20 @@
                             if (message.audioUrl) {
                                 togglePlayPause(messageId, message.audioUrl);
                             } else {
+                                // Audio not yet generated, generate it now
+                                // Update message state to show loading
                                 message.isGeneratingAudio = true;
                                 renderMessages(); 
                                 try {
                                     const audioUrl = await generateAudio(message.text);
                                     message.audioUrl = audioUrl;
                                     message.isGeneratingAudio = false;
-                                    renderMessages();
-                                    togglePlayPause(messageId, audioUrl);
+                                    renderMessages(); // Re-render to show play button
+                                    togglePlayPause(messageId, audioUrl); // Play the audio
                                 } catch (error) {
                                     console.error("Error generating audio on demand:", error);
                                     message.isGeneratingAudio = false;
-                                    messages.push({ id: Date.now(), sender: 'ai', text: "Failed to generate audio." });
+                                    messages.push({ id: Date.now(), sender: 'ai', text: "Failed to generate audio for this message." });
                                     renderMessages();
                                 }
                             }
@@ -156,119 +329,359 @@
                 });
             }
             
-            function scrollToBottom() { chatContainer.scrollTop = chatContainer.scrollHeight; }
+            // Scrolls the chat container to the bottom
+            function scrollToBottom() {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
 
+            // --- UI RENDERING ---
+            // Renders all messages in the chat container
             function renderMessages() {
-                if (messages.length > 0 && welcomeMessage) { welcomeMessage.style.display = 'none'; }
+                // Hide welcome message if there are actual chat messages
+                if (messages.length > 0 && welcomeMessage) {
+                    welcomeMessage.style.display = 'none';
+                }
+
                 chatContainer.innerHTML = messages.map(msg => {
-                    if (msg.type === 'loading') { return `<div class="message ai-message"><div class="loading-dots flex items-center space-x-2"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`; }
-                    const messageClass = msg.sender === 'user' ? 'user-message' : 'ai-message';
-                    let audioControl = '';
-                    if (msg.sender === 'ai') {
-                        if (msg.isGeneratingAudio) { audioControl = `<div class="flex items-center text-xs mt-2" style="color: var(--text-muted);"><i class="fas fa-spinner audio-generating-spinner mr-2"></i>Preparing audio...</div>`; }
-                        else { const isPlaying = currentlyPlayingId === msg.id; const iconClass = isPlaying ? 'fa-pause' : 'fa-play'; audioControl = `<div class="mt-2"><button class="audio-player-button" data-message-id="${msg.id}" aria-label="${isPlaying ? 'Pause' : 'Play'}"><i class="fas ${iconClass}"></i></button></div>`; }
+                    // Display loading dots for AI's thinking state
+                    if (msg.type === 'loading') {
+                        return `
+                            <div class="message ai-message">
+                                <div class="loading-dots flex items-center space-x-2">
+                                    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                                </div>
+                            </div>
+                        `;
                     }
-                    const isArabic = /[\u0600-\u06FF]/.test(msg.text); const textContent = isArabic ? `<span class="arabic-text">${msg.text}</span>` : msg.text;
-                    return `<div class="message ${messageClass}" style="display: flex; flex-direction: column;"><p>${textContent}</p>${audioControl}</div>`;
+                    // Determine message sender for styling
+                    const messageClass = msg.sender === 'user' ? 'user-message' : 'ai-message';
+                    
+                    let audioControl = '';
+                    // Add audio controls only for AI messages
+                    if (msg.sender === 'ai') {
+                        if (msg.isGeneratingAudio) {
+                            // Show spinner while audio is being generated
+                            audioControl = `
+                                <div class="flex items-center text-xs mt-2" style="color: var(--text-muted);">
+                                    <i class="fas fa-spinner audio-generating-spinner mr-2"></i>
+                                    Preparing audio...
+                                </div>`;
+                        } else { // Always show play button if it's an AI message, even if audioUrl is null initially
+                            const isPlaying = currentlyPlayingId === msg.id;
+                            const iconClass = isPlaying ? 'fa-pause' : 'fa-play';
+                            audioControl = `
+                                <div class="mt-2">
+                                    <button class="audio-player-button" data-message-id="${msg.id}" aria-label="${isPlaying ? 'Pause' : 'Play'}">
+                                        <i class="fas ${iconClass}"></i>
+                                    </button>
+                                </div>`;
+                        }
+                    }
+
+                    // Apply Arabic styling if the text contains specific Arabic characters
+                    // This is a heuristic; a more robust solution might involve language detection
+                    const isArabic = /[\u0600-\u06FF]/.test(msg.text);
+                    const textContent = isArabic ? `<span class="arabic-text">${msg.text}</span>` : msg.text;
+
+
+                    return `
+                        <div class="message ${messageClass}" style="display: flex; flex-direction: column;">
+                            <p>${textContent}</p>
+                            ${audioControl}
+                        </div>
+                    `;
                 }).join('');
-                scrollToBottom();
+                
+                scrollToBottom(); // Always scroll to the latest message
             }
             
-            function updateButtonStates() { const canSend = !isLoading && !isRecording && chatInput.value.trim() !== ''; sendButton.disabled = !canSend; micButton.disabled = isLoading; chatInput.disabled = isLoading || isRecording; micButton.classList.toggle('recording', isRecording); chatInput.placeholder = isRecording ? "Listening..." : "Type your question..."; }
+            // Updates the disabled state and appearance of buttons and input field
+            function updateButtonStates() {
+                const canSend = !isLoading && !isRecording && chatInput.value.trim() !== '';
+                sendButton.disabled = !canSend;
+                micButton.disabled = isLoading;
+                chatInput.disabled = isLoading || isRecording;
+                micButton.classList.toggle('recording', isRecording); // Add/remove recording class for pulse animation
+                chatInput.placeholder = isRecording ? "Listening..." : "Type your question...";
+            }
             
+            // --- MESSAGE HANDLING ---
+            // Handles sending a message (either typed or from speech)
             async function handleSendMessage(questionFromSpeech = null) {
                 const currentQuestion = questionFromSpeech !== null ? questionFromSpeech : chatInput.value.trim();
                 if (currentQuestion === '') return;
+
+                // Add user message to the chat history
                 messages.push({ id: Date.now(), sender: 'user', text: currentQuestion });
                 renderMessages();
-                chatInput.value = ''; isLoading = true; updateButtonStates();
-                messages.push({ type: 'loading' }); renderMessages();
+                
+                chatInput.value = ''; // Clear input field
+                isLoading = true; // Set loading state
+                updateButtonStates();
+
+                // Add loading indicator for AI response
+                messages.push({ type: 'loading' });
+                renderMessages();
+
                 try {
+                    // Get AI response from Gemini
                     const aiResponseText = await getAIResponse(currentQuestion);
+                    
                     const messageId = Date.now() + 1;
-                    messages.pop();
-                    messages.push({ id: messageId, sender: 'ai', text: aiResponseText, audioUrl: null, isGeneratingAudio: false });
+
+                    // Remove loading indicator and add AI message (initially without audioUrl, audio generated on demand)
+                    messages.pop(); // remove loading
+                    messages.push({ 
+                        id: messageId, 
+                        sender: 'ai', 
+                        text: aiResponseText, 
+                        audioUrl: null, // Audio URL is null initially
+                        isGeneratingAudio: false // Not generating audio yet
+                    });
                     renderMessages();
-                } catch (error) { console.error("Error:", error); messages.pop(); messages.push({ id: Date.now(), sender: 'ai', text: "An error occurred. Please try again." }); renderMessages(); }
-                finally { isLoading = false; updateButtonStates(); }
+
+                    // Audio generation is now triggered by clicking the play button
+
+                } catch (error) {
+                    console.error("Error:", error);
+                    messages.pop(); // remove loading
+                    messages.push({ id: Date.now(), sender: 'ai', text: "An error occurred. Please try again." });
+                    renderMessages();
+                } finally {
+                    isLoading = false; // Reset loading state
+                    updateButtonStates();
+                }
             }
 
+            // --- GEMINI API INTEGRATION ---
+            // Calls the Gemini API for text generation
             async function getAIResponse(prompt) {
+                const langCode = defaultLangCode; 
+
+                // System instruction updated for precise reference numbers and Arabic formatting
                 const systemInstruction = `You are a powerful and relevant Islamic AI assistant. Provide direct, short, and highly relevant answers to questions about Islam. Start with the most important information. Include a concise summary of the answer. If the answer contains Arabic text (e.g., a Dua or Quranic verse), present it with an HTML <u> tag for underlining and ensure Quranic verse numbers are styled as Arabic verse markers (e.g., ۝[number]). For Quranic references, include the Surah name, Surah number, and Ayat number (e.g., "Quran [Surah Name] [Surah Number]:[Ayat Number]"). For Sahih Muslim Hadith references, provide full details including the Book Name, Book Number, and Hadith Number (e.g., "Sahih Muslim, Book [Book Number], Hadith [Hadith Number]"). If a question is outside the scope of Islamic teachings, politely state that you cannot answer it. Respond in English.`;
-                let chatHistory = [{ role: "user", parts: [{ text: systemInstruction + "\n\n" + prompt }] }];
+
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: systemInstruction + "\n\n" + prompt }] });
+                
                 const payload = { contents: chatHistory };
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
                 for (let i = 0; i < 3; i++) {
                     try {
-                        const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
                         const result = await response.json();
-                        if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0]) { return result.candidates[0].content.parts[0].text; }
-                        console.warn("Unexpected API response:", result); return "I couldn't get a clear answer. Please try again.";
-                    } catch (error) { console.error(`Attempt ${i + 1} failed:`, error); if (i < 2) await new Promise(r => setTimeout(r, 1000 * (i + 1))); }
-                } throw new Error("Failed to get AI response.");
+                        if (result.candidates && result.candidates.length > 0 &&
+                            result.candidates[0].content && result.candidates[0].content.parts &&
+                            result.candidates[0].content.parts.length > 0) {
+                            return result.candidates[0].content.parts[0].text;
+                        } else {
+                            console.warn("Unexpected API response structure:", result);
+                            return "I couldn't get a clear answer. Please try rephrasing.";
+                        }
+                    } catch (error) {
+                        console.error(`Attempt ${i + 1}: Error fetching AI response:`, error);
+                        if (i < 2) {
+                            await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+                        }
+                    }
+                }
+                throw new Error("Failed to get AI response after multiple retries.");
             }
 
+            // Calls the Gemini TTS API to generate audio from text
             async function generateAudio(text) {
-                const payload = { contents: [{ parts: [{ text: text }] }], generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: defaultTtsVoice } } } }, model: "gemini-2.5-flash-preview-tts" };
+                const ttsVoice = defaultTtsVoice; 
+
+                const payload = {
+                    contents: [{
+                        parts: [{ text: text }]
+                    }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: ttsVoice }
+                            }
+                        }
+                    },
+                    model: "gemini-2.5-flash-preview-tts"
+                };
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
                 for (let i = 0; i < 3; i++) {
                     try {
-                        const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
                         const result = await response.json();
                         const part = result?.candidates?.[0]?.content?.parts?.[0];
-                        if (part?.inlineData?.data && part.inlineData.mimeType.startsWith("audio/L16")) {
-                            const sampleRate = parseInt(part.inlineData.mimeType.match(/rate=(\d+)/)[1], 10) || 16000;
-                            const pcmData = base64ToArrayBuffer(part.inlineData.data);
-                            return URL.createObjectURL(pcmToWav(new Int16Array(pcmData), sampleRate));
+                        const audioData = part?.inlineData?.data;
+                        const mimeType = part?.inlineData?.mimeType;
+
+                        if (audioData && mimeType && mimeType.startsWith("audio/L16")) {
+                            const sampleRateMatch = mimeType.match(/rate=(\d+)/);
+                            const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 16000;
+
+                            const pcmData = base64ToArrayBuffer(audioData);
+                            const pcm16 = new Int16Array(pcmData);
+                            const wavBlob = pcmToWav(pcm16, sampleRate);
+                            return URL.createObjectURL(wavBlob);
+                        } else {
+                            console.warn("Unexpected TTS API response structure or mime type:", result);
+                            return null;
                         }
-                    } catch (error) { console.error(`Audio gen attempt ${i + 1} failed:`, error); if (i < 2) await new Promise(r => setTimeout(r, 1000 * (i + 1))); }
-                } throw new Error("Failed to generate audio.");
+                    } catch (error) {
+                        console.error(`Attempt ${i + 1}: Error generating audio:`, error);
+                        if (i < 2) {
+                            await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+                        }
+                    }
+                }
+                throw new Error("Failed to generate audio after multiple retries.");
             }
 
-            function base64ToArrayBuffer(b64) { const s = atob(b64), l = s.length, B = new Uint8Array(l); for (let i = 0; i < l; i++) B[i] = s.charCodeAt(i); return B.buffer; }
-            function pcmToWav(d, r) { const b = new ArrayBuffer(44 + d.length * 2); const v = new DataView(b); writeStr(v, 0, 'RIFF'); v.setUint32(4, 36 + d.length * 2, true); writeStr(v, 8, 'WAVE'); writeStr(v, 12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, r, true); v.setUint32(28, r * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); writeStr(v, 36, 'data'); v.setUint32(40, d.length * 2, true); for (let i = 0; i < d.length; i++) v.setInt16(44 + i * 2, d[i], true); return new Blob([v], { type: 'audio/wav' }); }
-            function writeStr(v, o, s) { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); }
+            function base64ToArrayBuffer(base64) {
+                const binaryString = atob(base64);
+                const len = binaryString.length;
+                const bytes = new Uint8Array(len);
+                for (let i = 0; i < len; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+                return bytes.buffer;
+            }
 
-            function togglePlayPause(id, url) {
-                if (currentlyPlayingId === id) { if (currentAudio) { currentAudio.pause(); currentAudio = null; currentlyPlayingId = null; } }
-                else { if (currentAudio) currentAudio.pause(); currentAudio = new Audio(url); currentAudio.play(); currentlyPlayingId = id; currentAudio.onended = () => { currentlyPlayingId = null; currentAudio = null; renderMessages(); }; }
+            function pcmToWav(pcmData, sampleRate) {
+                const numChannels = 1;
+                const bytesPerSample = 2;
+
+                const wavBuffer = new ArrayBuffer(44 + pcmData.length * bytesPerSample);
+                const view = new DataView(wavBuffer);
+
+                writeString(view, 0, 'RIFF');
+                view.setUint32(4, 36 + pcmData.length * bytesPerSample, true);
+                writeString(view, 8, 'WAVE');
+
+                writeString(view, 12, 'fmt ');
+                view.setUint32(16, 16, true);
+                view.setUint16(20, 1, true);
+                view.setUint16(22, numChannels, true);
+                view.setUint32(24, sampleRate, true);
+                view.setUint32(28, sampleRate * numChannels * bytesPerSample, true);
+                view.setUint16(32, numChannels * bytesPerSample, true);
+                view.setUint16(34, 16, true);
+
+                writeString(view, 36, 'data');
+                view.setUint32(40, pcmData.length * bytesPerSample, true);
+
+                for (let i = 0; i < pcmData.length; i++) {
+                    view.setInt16(44 + i * bytesPerSample, pcmData[i], true);
+                }
+
+                return new Blob([view], { type: 'audio/wav' });
+            }
+
+            function writeString(view, offset, string) {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            }
+
+            function togglePlayPause(messageId, audioUrl) {
+                if (currentlyPlayingId === messageId) {
+                    if (currentAudio) {
+                        currentAudio.pause();
+                        currentAudio = null;
+                        currentlyPlayingId = null;
+                    }
+                } else {
+                    if (currentAudio) {
+                        currentAudio.pause();
+                    }
+                    
+                    currentAudio = new Audio(audioUrl);
+                    currentAudio.play();
+                    currentlyPlayingId = messageId;
+                    
+                    currentAudio.onended = () => {
+                        currentlyPlayingId = null;
+                        currentAudio = null;
+                        renderMessages();
+                    };
+                }
                 renderMessages();
             }
 
             function initializeSpeechRecognition() {
-                const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-                if(SR) {
-                    browserSupportsSpeechRecognition = true; recognitionInstance = new SR(); recognitionInstance.lang = defaultLangCode;
-                    recognitionInstance.onresult = (e) => { latestTranscript = e.results[0][0].transcript; chatInput.value = latestTranscript; };
-                    recognitionInstance.onend = () => { isRecording = false; isLoading = false; updateButtonStates(); if(latestTranscript.trim()) handleSendMessage(latestTranscript.trim()); latestTranscript = ''; };
-                    recognitionInstance.onerror = (e) => { console.error("STT Error:", e.error); let msg = "Speech recognition error."; if (e.error === 'not-allowed') msg = "Microphone access denied."; if (e.error === 'no-speech') msg = "No speech detected."; messages.push({ id: Date.now(), sender: 'ai', text: msg }); renderMessages(); isRecording = false; isLoading = false; updateButtonStates(); };
-                } else { micButton.style.display = 'none'; }
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if(SpeechRecognition) {
+                    browserSupportsSpeechRecognition = true;
+                    recognitionInstance = new SpeechRecognition();
+                    recognitionInstance.continuous = false;
+                    recognitionInstance.interimResults = false;
+                    recognitionInstance.lang = defaultLangCode;
+
+                    recognitionInstance.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript;
+                        chatInput.value = transcript;
+                        latestTranscript = transcript;
+                    };
+                    
+                    recognitionInstance.onend = () => {
+                        isRecording = false;
+                        isLoading = false;
+                        updateButtonStates();
+                        if(latestTranscript.trim()){
+                            handleSendMessage(latestTranscript.trim());
+                        }
+                        latestTranscript = '';
+                    };
+
+                    recognitionInstance.onerror = (event) => {
+                        console.error("Speech recognition error:", event.error);
+                        let errorMessage = "Error during speech recognition.";
+                        if (event.error === 'not-allowed') errorMessage = "Microphone access denied. Please allow microphone access in your browser settings.";
+                        if (event.error === 'no-speech') errorMessage = "No speech was detected. Please try speaking louder or clearer.";
+                        messages.push({ id: Date.now(), sender: 'ai', text: errorMessage });
+                        renderMessages();
+                        isRecording = false;
+                        isLoading = false;
+                        updateButtonStates();
+                    };
+                } else {
+                    micButton.style.display = 'none';
+                }
             }
             
             async function startRecording() {
                 if (!browserSupportsSpeechRecognition || isLoading) return;
                 try {
                     await navigator.mediaDevices.getUserMedia({ audio: true });
-                    isRecording = true; isLoading = true; chatInput.value = ''; updateButtonStates(); recognitionInstance.start();
-                } catch (err) { messages.push({ id: Date.now(), sender: 'ai', text: "Microphone access denied." }); renderMessages(); }
+                    isRecording = true;
+                    isLoading = true;
+                    chatInput.value = '';
+                    updateButtonStates();
+                    recognitionInstance.start();
+                } catch (err) {
+                    messages.push({ id: Date.now(), sender: 'ai', text: "Microphone access denied. Please allow microphone access in your browser settings." });
+                    renderMessages();
+                }
             }
-            function stopRecording() { if (recognitionInstance && isRecording) { recognitionInstance.stop(); } }
-            
+
+            function stopRecording() {
+                if (recognitionInstance && isRecording) {
+                    recognitionInstance.stop();
+                }
+            }
+
             initialize();
         });
-    </script>
-    <script>
-    // Navigation Handler
-    document.addEventListener("DOMContentLoaded", function() {
-        const navButtons = document.querySelectorAll('nav .nav-button');
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        navButtons.forEach(button => {
-            const buttonPage = button.getAttribute('href');
-            if (buttonPage === currentPage) {
-                button.classList.add('active');
-            }
-        });
-    });
     </script>
 </body>
 </html>
