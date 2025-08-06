@@ -2,22 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ask Islam - AI Powered Q&A</title>
+    <title>Ask Islam AI - Ramadhan World</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Your questions about Islam, answered by AI according to Islamic teachings. Features text and voice Q&A.">
-    <meta name="keywords" content="islamic qa, ask islam, ai islam, quran, hadith, islamic teachings">
-    <meta name="theme-color" content="#0a192f">
-
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts for Arabic and general text -->
+    <meta name="description" content="Get answers to your Islamic questions from our AI assistant, powered by advanced language models and based on authentic sources.">
+    <link rel="canonical" href="https://www.ramadhanworld.com/ask.html">
+    <!-- Common Head Content (CSS, Fonts, etc.) -->
+    <link rel="icon" href="https://i.ibb.co/Zp0bgjsS/ART-WORKS-1.png" type="image/png">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Custom CSS variables for consistent theming */
         :root {
             --primary-dark: #0a192f;
             --secondary-dark: #113a3b;
@@ -27,102 +22,88 @@
             --card-bg: rgba(10, 25, 47, 0.85);
             --card-border: rgba(57, 255, 20, 0.2);
         }
-
-        /* Body styling with gradient background and default font */
         body {
             font-family: 'Cairo', 'Inter', sans-serif;
             background: linear-gradient(to bottom, var(--primary-dark), var(--secondary-dark));
             color: var(--text-light);
-            -webkit-tap-highlight-color: transparent; /* Removes tap highlight on mobile */
+            -webkit-tap-highlight-color: transparent;
         }
-
-        /* Card-like styling for messages with blur effect */
         .card {
             background-color: var(--card-bg);
             backdrop-filter: blur(10px);
             border: 1px solid var(--card-border);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
-
-        /* Chat container for scrollable messages */
+        .nav-button.active {
+            background-color: #39FF14;
+            color: #0a192f;
+            font-weight: 700;
+            box-shadow: 0 4px 14px rgba(57, 255, 20, .4);
+        }
+        .nav-button:hover {
+            background-color: rgba(57, 255, 20, .8);
+            color: #000;
+        }
         .chat-container {
             flex: 1;
             overflow-y: auto;
             padding: 1rem;
-            padding-bottom: 9rem; /* Space for the fixed input bar */
+            padding-bottom: 9rem;
         }
-        
-        /* Base message styling with animation */
         .message {
             max-width: 80%;
             padding: 0.75rem 1rem;
             border-radius: 0.75rem;
             margin-bottom: 0.75rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             opacity: 0;
             transform: translateY(20px);
-            animation: slide-in 0.3s forwards; /* Animation for new messages */
+            animation: slide-in 0.3s forwards;
         }
-
-        /* Keyframe for slide-in animation */
         @keyframes slide-in {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
-        /* Styling for user messages */
         .user-message {
             background-color: var(--secondary-dark);
             color: var(--text-light);
             border-radius: 0.75rem 0.75rem 0 0.75rem;
-            align-self: flex-end; /* Aligns to the right */
+            align-self: flex-end;
             border: 1px solid var(--card-border);
         }
-
-        /* Styling for AI messages */
         .ai-message {
             background-color: var(--card-bg);
             color: var(--text-light);
             border-radius: 0.75rem 0.75rem 0.75rem 0;
-            align-self: flex-start; /* Aligns to the left */
+            align-self: flex-start;
             border: 1px solid var(--card-border);
         }
-        
-        /* Font styling for AI message content */
         .ai-message p {
-            white-space: pre-wrap; /* Preserves whitespace and line breaks */
-            font-family: 'Amiri', serif; /* Specific font for AI responses */
+            white-space: pre-wrap;
+            font-family: 'Amiri', serif;
             font-size: 1.1rem;
             line-height: 1.8;
         }
-
-        /* Input bar styling (fixed at bottom) */
         .input-bar {
             background: rgba(10, 25, 47, 0.8);
             backdrop-filter: blur(10px);
             border-top: 1px solid var(--card-border);
         }
-
-        /* Chat input field styling */
         .chat-input {
             background-color: #1f2937;
             border: 1px solid #374151;
             color: #fff;
-            border-radius: 9999px; /* Fully rounded */
+            border-radius: 9999px;
             padding: 0.65rem 1rem;
             transition: all 0.2s ease;
         }
-        
-        /* Focus state for chat input */
         .chat-input:focus {
             outline: none;
             border-color: var(--accent-green);
             box-shadow: 0 0 0 2px rgba(57, 255, 20, 0.5);
         }
-        
-        /* Styling for control buttons (send, mic) */
         .control-button {
             background-color: var(--accent-green);
             color: var(--primary-dark);
@@ -135,40 +116,34 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 14px rgba(57, 255, 20, 0.4);
         }
-        
-        /* Hover effect for control buttons */
         .control-button:hover {
             transform: scale(1.1);
         }
-
-        /* Disabled state for control buttons */
         .control-button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: scale(1);
             box-shadow: none;
         }
-
-        /* Specific styling for microphone button */
         .mic-button {
             background-color: #374151;
             color: white;
         }
-
-        /* Recording state for microphone button with pulse animation */
         .mic-button.recording {
-            background-color: #ef4444; /* Red for recording */
+            background-color: #ef4444;
             animation: pulse 1.5s infinite;
         }
-
-        /* Keyframe for pulse animation */
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
         }
-        
-        /* Loading dots animation */
         .loading-dots .dot {
             width: 8px;
             height: 8px;
@@ -176,16 +151,22 @@
             border-radius: 50%;
             animation: bounce 1.4s infinite ease-in-out both;
         }
-        .loading-dots .dot:nth-child(1) { animation-delay: -0.32s; }
-        .loading-dots .dot:nth-child(2) { animation-delay: -0.16s; }
-        
-        /* Keyframe for bounce animation */
-        @keyframes bounce {
-          0%, 80%, 100% { transform: scale(0); }
-          40% { transform: scale(1.0); }
+        .loading-dots .dot:nth-child(1) {
+            animation-delay: -0.32s;
         }
-        
-        /* Audio player button styling */
+        .loading-dots .dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+        @keyframes bounce {
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1.0);
+            }
+        }
         .audio-player-button {
             padding: 0.5rem;
             background-color: var(--accent-green);
@@ -201,57 +182,88 @@
         .audio-player-button:hover {
             transform: scale(1.1);
         }
-        
-        /* Spinner for audio generation */
         .audio-generating-spinner {
             animation: spin 1s linear infinite;
         }
-        /* Keyframe for spin animation */
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
-
-        /* Styling for Arabic text to ensure right-to-left underline */
         .arabic-text {
             direction: rtl;
             unicode-bidi: embed;
             text-align: right;
             text-decoration: underline;
-            text-decoration-color: var(--accent-green); /* Optional: make underline green */
-            text-underline-offset: 4px; /* Adjust as needed */
+            text-decoration-color: var(--accent-green);
+            text-underline-offset: 4px;
         }
-
     </style>
 </head>
-<body class="flex flex-col h-screen">
+<body class="bg-gray-900 text-white flex flex-col h-screen">
 
-    <header class="p-4 shadow-lg z-10 text-white" style="background: linear-gradient(90deg, rgba(12, 28, 50, 0.9) 0%, rgba(17, 58, 59, 0.9) 100%); border-bottom: 1px solid var(--card-border);">
-        <h1 class="text-2xl font-bold text-center" style="color: var(--accent-green); text-shadow: 0 0 8px rgba(57,255,20,0.7);">Ask Islam</h1>
-        <p class="text-sm text-center opacity-90 text-gray-300">Your questions answered according to Islamic teachings.</p>
-    </header>
+    <div id="main-content" class="flex flex-col flex-grow">
+        <!-- Header Section -->
+        <header class="text-center mb-6 pt-4 px-4">
+            <a href="index.html"><img id="app-logo" src="https://i.ibb.co/Zp0bgjsS/ART-WORKS-1.png" alt="Ramadhan World App Logo" class="w-24 h-24 mx-auto mb-2 rounded-full shadow-lg object-contain"></a>
+            <h1 class="text-3xl font-extrabold" style="color: #39FF14;">Ask Islam</h1>
+        </header>
 
-    <main id="chat-container" class="chat-container flex flex-col space-y-4">
-        <!-- Messages will be injected here -->
-        <div id="welcome-message" class="text-center text-gray-400 mt-10">
-            <i class="fas fa-moon text-4xl mb-2" style="color: var(--accent-green);"></i>
-            <p class="text-lg">Welcome! Ask me anything about Islam.</p>
-        </div>
-    </main>
+        <!-- Navigation -->
+        <nav class="flex justify-center gap-2 mb-6 flex-wrap items-center px-4">
+            <a href="index.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🏠 Home</a>
+            <a href="salah.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🕌 Salah</a>
+            <a href="quran.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📖 Quran</a>
+            <a href="radio.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📻 Radio</a>
+            <a href="ask.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">💬 Ask Islam</a>
+            <a href="tasbeeh.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📿 Tasbeeh</a>
+            <a href="hadith.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📜 Hadith</a>
+            <a href="naat.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🎵 Naat</a>
+            <a href="qibla.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🧭 Qibla</a>
+            <a href="calendar.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🗓️ Calendar</a>
+            <a href="settings.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">⚙️ Settings</a>
+        </nav>
 
-    <div class="fixed bottom-0 left-0 right-0 p-3 sm:p-4 input-bar">
-        <div class="container mx-auto flex items-center space-x-2">
-            <input type="text" id="chat-input" placeholder="Type your question..." class="flex-1 chat-input focus:outline-none" />
-            <button id="mic-button" class="control-button mic-button" aria-label="Start recording">
-                <i class="fas fa-microphone"></i>
-            </button>
-            <button id="send-button" class="control-button" aria-label="Send message">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
+        <!-- Main Content -->
+        <main class="flex-grow flex flex-col">
+            <div class="card p-0 flex flex-col flex-grow mx-4 mb-4" style="max-width: 960px; margin: auto;">
+                <header class="p-4 shadow-lg z-10 text-white" style="background: linear-gradient(90deg, rgba(12, 28, 50, 0.9) 0%, rgba(17, 58, 59, 0.9) 100%); border-bottom: 1px solid var(--card-border); border-radius: .75rem .75rem 0 0;">
+                    <p class="text-sm text-center opacity-90 text-gray-300">Your questions answered according to Islamic teachings.</p>
+                </header>
+
+                <main id="chat-container" class="chat-container flex flex-col space-y-4">
+                    <div id="welcome-message" class="text-center text-gray-400 mt-10">
+                        <i class="fas fa-moon text-4xl mb-2" style="color: var(--accent-green);"></i>
+                        <p class="text-lg">Welcome! Ask me anything about Islam.</p>
+                    </div>
+                </main>
+
+                <div class="p-3 sm:p-4 input-bar" style="border-top: 1px solid var(--card-border); background: rgba(10, 25, 47, 0.9);">
+                    <div class="container mx-auto flex items-center space-x-2">
+                        <input type="text" id="chat-input" placeholder="Type your question..." class="flex-1 chat-input focus:outline-none" />
+                        <button id="mic-button" class="control-button mic-button" aria-label="Start recording">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button id="send-button" class="control-button" aria-label="Send message">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="text-center p-4 text-sm text-gray-600 space-x-4">
+          <a href="about.html" class="text-blue-600 underline">About</a>
+          <a href="privacy.html" class="text-blue-600 underline">Privacy Policy</a>
+          <a href="contact.html" class="text-blue-600 underline">Contact</a>
+        </footer>
     </div>
-
-
+    
+    <!-- Scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // DOM Elements
@@ -274,8 +286,9 @@
             let currentAudio = null;
             let currentlyPlayingId = null;
 
-            // API Key for Gemini (Leave as empty string; Canvas will provide at runtime)
-            const apiKey = ""; 
+            // API Key for Gemini: REPLACE "YOUR_GEMINI_API_KEY_HERE" WITH YOUR ACTUAL API KEY
+            // You can get an API key from Google AI Studio (ai.google.dev)
+            const apiKey = "AIzaSyBYYSmX4H5BXpfp6VBiBMa-7iuU6Wq1Ia4"; 
 
             // Default language and TTS voice
             const defaultLangCode = 'en-US'; 
@@ -682,6 +695,19 @@
 
             initialize();
         });
+    </script>
+    <script>
+    // Navigation Handler
+    document.addEventListener("DOMContentLoaded", function() {
+        const navButtons = document.querySelectorAll('nav .nav-button');
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        navButtons.forEach(button => {
+            const buttonPage = button.getAttribute('href');
+            if (buttonPage === currentPage) {
+                button.classList.add('active');
+            }
+        });
+    });
     </script>
 </body>
 </html>
