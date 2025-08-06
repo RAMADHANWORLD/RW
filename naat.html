@@ -81,29 +81,103 @@
         </footer>
     </div>
     
-    <!-- Scripts -->
+    <!-- YouTube Iframe API script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         const loadingScreen=document.getElementById("loading-screen"),mainContent=document.getElementById("main-content"),islamicDateEl=document.getElementById("islamic-date"),locationEl=document.getElementById("location"),tvPlayButton=document.getElementById("tv-play-button"),tvPauseButton=document.getElementById("tv-pause-button");
         let youtubePlayer;
 
-        function initializeAppFast(){
+        // Function called when the YouTube Iframe API is ready
+        function onYouTubeIframeAPIReady() {
+            console.log("onYouTubeIframeAPIReady fired!"); // Log to confirm this function is called
+            const playerElement = document.getElementById('youtube-player');
+            if (!playerElement) {
+                console.error("YouTube player element not found!"); // Log if element is missing
+                return;
+            }
+            
+            youtubePlayer = new YT.Player(playerElement, {
+                height: "480",
+                width: "854",
+                playerVars: {
+                    playsinline: 1,
+                    listType: "playlist",
+                    list: "PL6b_3Yr67_wFpDJfaZLlMEUP6h5EroJi2", // Your YouTube playlist ID
+                    controls: 0,
+                    rel: 0
+                },
+                events: {
+                    onStateChange: onPlayerStateChange
+                }
+            });
+            console.log("YouTube Player initialized."); // Log successful initialization
+        }
+
+        function onPlayerStateChange(a) {
+            if (tvPlayButton) tvPlayButton.classList.toggle("hidden", a.data === YT.PlayerState.PLAYING);
+            if (tvPauseButton) tvPauseButton.classList.toggle("hidden", a.data !== YT.PlayerState.PLAYING);
+        }
+
+        function playVideo() { youtubePlayer.playVideo(); }
+        function pauseVideo() { youtubePlayer.pauseVideo(); }
+        function nextVideo() { youtubePlayer.nextVideo(); }
+        function previousVideo() { youtubePlayer.previousVideo(); }
+
+        // Initial app setup and data fetching
+        function initializeAppFast() {
             hideLoading();
-            // The onYouTubeIframeAPIReady function is called automatically by the YouTube API script
-            async function fetchInitialData() { await getUserLocation(); };
+            async function fetchInitialData() { await getUserLocation(); }
             fetchInitialData();
         }
-        function hideLoading(){loadingScreen.style.opacity="0",setTimeout(()=>{loadingScreen.style.display="none",mainContent.style.opacity=1},300)}
-        async function getUserLocation(){return new Promise(a=>{navigator.geolocation?navigator.geolocation.getCurrentPosition(async e=>{try{const t=await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${e.coords.latitude}&lon=${e.coords.longitude}`),n=await t.json();if(islamicDateEl) getPrayerTimes(n.address.city||n.address.town,n.address.country)}catch(e){}a()},async()=>{a()}):a()})}
-        async function getPrayerTimes(a,e){try{const t=new Date,n=`${t.getDate()}-${t.getMonth()+1}-${t.getFullYear()}`,o=`https://api.aladhan.com/v1/timingsByCity/${n}?city=${a}&country=${e}&method=2`,r=await fetch(o),d=await r.json();if(200===d.code && islamicDateEl)islamicDateEl.textContent=`${d.data.date.hijri.weekday.en}, ${d.data.date.hijri.day} ${d.data.date.hijri.month.en} ${d.data.date.hijri.year}`}catch(a){console.error("Error fetching prayer times:",a)}}
-        
-        function onYouTubeIframeAPIReady(){if(!document.getElementById('youtube-player'))return;youtubePlayer=new YT.Player("youtube-player",{height:"480",width:"854",playerVars:{playsinline:1,listType:"playlist",list:"PL6b_3Yr67_wFpDJfaZLlMEUP6h5EroJi2",controls:0,rel:0},events:{onStateChange:onPlayerStateChange}})}
-        function onPlayerStateChange(a){if(tvPlayButton)tvPlayButton.classList.toggle("hidden",a.data===YT.PlayerState.PLAYING);if(tvPauseButton)tvPauseButton.classList.toggle("hidden",a.data!==YT.PlayerState.PLAYING)}
-        function playVideo(){youtubePlayer.playVideo()}
-        function pauseVideo(){youtubePlayer.pauseVideo()}
-        function nextVideo(){youtubePlayer.nextVideo()}
-        function previousVideo(){youtubePlayer.previousVideo()}
 
+        function hideLoading() {
+            loadingScreen.style.opacity = "0";
+            setTimeout(() => {
+                loadingScreen.style.display = "none";
+                mainContent.style.opacity = 1;
+            }, 300);
+        }
+
+        async function getUserLocation() {
+            return new Promise(a => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(async e => {
+                        try {
+                            const t = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${e.coords.latitude}&lon=${e.coords.longitude}`);
+                            const n = await t.json();
+                            if (islamicDateEl) getPrayerTimes(n.address.city || n.address.town, n.address.country);
+                        } catch (e) {
+                            console.error("Error fetching location or prayer times:", e);
+                        }
+                        a();
+                    }, async () => {
+                        console.warn("Geolocation permission denied or error.");
+                        a();
+                    });
+                } else {
+                    console.warn("Geolocation not supported by this browser.");
+                    a();
+                }
+            });
+        }
+
+        async function getPrayerTimes(a, e) {
+            try {
+                const t = new Date();
+                const n = `${t.getDate()}-${t.getMonth() + 1}-${t.getFullYear()}`;
+                const o = `https://api.aladhan.com/v1/timingsByCity/${n}?city=${a}&country=${e}&method=2`;
+                const r = await fetch(o);
+                const d = await r.json();
+                if (200 === d.code && islamicDateEl) {
+                    islamicDateEl.textContent = `${d.data.date.hijri.weekday.en}, ${d.data.date.hijri.day} ${d.data.date.hijri.month.en} ${d.data.date.hijri.year}`;
+                } else {
+                    console.error("Failed to fetch prayer times:", d.data.status);
+                }
+            } catch (a) {
+                console.error("Error fetching prayer times:", a);
+            }
+        }
+        
         document.addEventListener("DOMContentLoaded", initializeAppFast);
     </script>
     <script>
