@@ -34,6 +34,27 @@
         box-sizing: border-box;
     }
     </style>
+
+    <!-- 
+        IMPORTANT: Content Security Policy (CSP) Configuration for YouTube
+        If the YouTube player is not loading on your live website, it's very likely due to CSP restrictions.
+        Uncomment the meta tag below and replace any existing CSP meta tag in your <head>.
+        This policy allows scripts and iframes from YouTube, as well as other necessary sources.
+        Adjust 'self' and other domains as per your website's specific needs.
+        'unsafe-inline' for style-src is used here for Tailwind CSS. For stricter security,
+        you might need to generate hashes or nonces for inline styles.
+    -->
+    <!--
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://www.youtube.com https://s.ytimg.com;
+        frame-src 'self' https://www.youtube.com;
+        connect-src 'self' https://nominatim.openstreetmap.org https://api.aladhan.com https://www.youtube.com https://s.ytimg.com;
+        img-src 'self' https://i.ibb.co;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+        font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+    ">
+    -->
 </head>
 <body class="bg-gray-900 text-white">
 
@@ -60,7 +81,7 @@
             <a href="tasbeeh.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📿 Tasbeeh</a>
             <a href="hadith.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📜 Hadith</a>
             <a href="naat.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🎵 Naat</a>
-            <a href="qibla.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🧭 Qibla</a>
+            <a href="qibla.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">� Qibla</a>
             <a href="calendar.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🗓️ Calendar</a>
             <a href="settings.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">⚙️ Settings</a>
         </nav>
@@ -228,3 +249,4 @@
     </script>
 </body>
 </html>
+�
