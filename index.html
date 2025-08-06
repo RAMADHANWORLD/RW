@@ -5,7 +5,7 @@
     <title>Ramadhan World - Islamic Prayer Times, Quran, Qibla</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="All-in-one Islamic web app with prayer times (Salah), Qibla compass, Quran player, Tasbeeh counter, Hijri calendar, and live Islamic radio. Your daily companion for Islamic practices.">
-    <meta name="keywords" content="islamic app, prayer times, salah, quran, qibla, tasbeeh, ramadan, hijri calendar, islamic radio, muslim, adhan, azan, asma-ul-husna, hadith, weather, clouds, 99 names of allah">
+    <meta name="keywords" content="islamic app, prayer times, salah, quran, qibla, tasbeeh, ramadan, hijri calendar, islamic radio, muslim, adhan, azan, asma-ul-husna, hadith, weather, clouds, 99 names of allah, ask islam, islamic qa, ai islam">
     <meta name="google-adsense-account" content="ca-pub-8794459819365243">
     <meta name="theme-color" content="#0a192f">
     <link rel="canonical" href="https://www.ramadhanworld.com">
@@ -92,6 +92,128 @@
     .scroll-item h3{font-size:1.2rem;color:#a7f3d0;margin-bottom:.5rem;font-weight:bold}
     .scroll-item p{font-family:'Amiri',serif;font-size:1.1rem;color:#e6f1ff;line-height:1.8}
     .ad-container-bottom{margin-top:1.5rem;padding-top:1.5rem;border-top:1px dashed rgba(57,255,20,.3);text-align:center}
+    
+    /* --- Styles for Ask Islam AI Assistant --- */
+    :root {
+        --primary-dark: #0a192f;
+        --secondary-dark: #113a3b;
+        --accent-green: #39FF14;
+        --text-light: #e6f1ff;
+        --text-muted: #a7f3d0;
+        --card-bg: rgba(10, 25, 47, 0.85);
+        --card-border: rgba(57, 255, 20, 0.2);
+    }
+    .chat-container {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem;
+        padding-bottom: 9rem; /* Space for the fixed input bar */
+    }
+    .message {
+        max-width: 80%;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        margin-bottom: 0.75rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: slide-in 0.3s forwards; /* Animation for new messages */
+    }
+    @keyframes slide-in { to { opacity: 1; transform: translateY(0); } }
+    .user-message {
+        background-color: var(--secondary-dark);
+        color: var(--text-light);
+        border-radius: 0.75rem 0.75rem 0 0.75rem;
+        align-self: flex-end; /* Aligns to the right */
+        border: 1px solid var(--card-border);
+    }
+    .ai-message {
+        background-color: var(--card-bg);
+        color: var(--text-light);
+        border-radius: 0.75rem 0.75rem 0.75rem 0;
+        align-self: flex-start; /* Aligns to the left */
+        border: 1px solid var(--card-border);
+    }
+    .ai-message p {
+        white-space: pre-wrap; /* Preserves whitespace and line breaks */
+        font-family: 'Amiri', serif; /* Specific font for AI responses */
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+    .input-bar {
+        background: rgba(10, 25, 47, 0.8);
+        backdrop-filter: blur(10px);
+    }
+    .chat-input {
+        background-color: #1f2937;
+        border: 1px solid #374151;
+        color: #fff;
+        border-radius: 9999px; /* Fully rounded */
+        padding: 0.65rem 1rem;
+        transition: all 0.2s ease;
+    }
+    .chat-input:focus {
+        outline: none;
+        border-color: var(--accent-green);
+        box-shadow: 0 0 0 2px rgba(57, 255, 20, 0.5);
+    }
+    .control-button {
+        background-color: var(--accent-green);
+        color: var(--primary-dark);
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 14px rgba(57, 255, 20, 0.4);
+    }
+    .control-button:hover { transform: scale(1.1); }
+    .control-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: scale(1);
+        box-shadow: none;
+    }
+    .mic-button { background-color: #374151; color: white; }
+    .mic-button.recording {
+        background-color: #ef4444; /* Red for recording */
+        animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+    .loading-dots .dot {
+        width: 8px;
+        height: 8px;
+        background-color: var(--text-muted);
+        border-radius: 50%;
+        animation: bounce 1.4s infinite ease-in-out both;
+    }
+    .loading-dots .dot:nth-child(1) { animation-delay: -0.32s; }
+    .loading-dots .dot:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1.0); }
+    }
+    .audio-player-button {
+        padding: 0.5rem;
+        background-color: var(--accent-green);
+        color: var(--primary-dark);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(57, 255, 20, 0.3);
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .audio-player-button:hover { transform: scale(1.1); }
+    .audio-generating-spinner { animation: spin 1s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -137,6 +259,7 @@
             <button onclick="showView('salah')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🕌 Salah</button>
             <button onclick="showView('listenQuran')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📖 Quran</button>
             <button onclick="showView('radio')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📻 Radio</button>
+            <button onclick="showView('askIslam')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">💬 Ask Islam</button>
             <button onclick="showView('tasbeeh')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📿 Tasbeeh</button>
             <button onclick="showView('hadith')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📜 Hadith</button>
             <button onclick="showView('naat')" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🎵 Naat</button>
@@ -206,6 +329,36 @@
                         <a href="contact.html">Contact</a>
                     </div>
                 </section>
+            </div>
+
+            <!-- Ask Islam AI Assistant View -->
+            <div id="ask-islam-view" class="hidden">
+                 <div class="card p-0 flex flex-col" style="height: 80vh; max-width: 960px; margin: auto;">
+                    <header class="p-4 shadow-lg z-10 text-white" style="background: linear-gradient(90deg, rgba(12, 28, 50, 0.9) 0%, rgba(17, 58, 59, 0.9) 100%); border-bottom: 1px solid var(--card-border); border-radius: .75rem .75rem 0 0;">
+                        <h1 class="text-2xl font-bold text-center" style="color: var(--accent-green); text-shadow: 0 0 8px rgba(57,255,20,0.7);">Ask Islam</h1>
+                        <p class="text-sm text-center opacity-90 text-gray-300">Your questions answered according to Islamic teachings.</p>
+                    </header>
+
+                    <main id="chat-container" class="chat-container flex flex-col space-y-4">
+                        <!-- Messages will be injected here -->
+                        <div id="welcome-message" class="text-center text-gray-400 mt-10">
+                            <i class="fas fa-moon text-4xl mb-2" style="color: var(--accent-green);"></i>
+                            <p class="text-lg">Welcome! Ask me anything about Islam.</p>
+                        </div>
+                    </main>
+
+                    <div class="p-3 sm:p-4 input-bar" style="border-top: 1px solid var(--card-border); background: rgba(10, 25, 47, 0.9);">
+                        <div class="container mx-auto flex items-center space-x-2">
+                            <input type="text" id="chat-input" placeholder="Type your question..." class="flex-1 chat-input focus:outline-none" />
+                            <button id="mic-button" class="control-button mic-button" aria-label="Start recording">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            <button id="send-button" class="control-button" aria-label="Send message">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <!-- Hadith View -->
@@ -409,10 +562,426 @@
     </div>
     
     <script src="https://www.youtube.com/iframe_api" defer></script>
+    
+    <!-- SCRIPT FOR ASK ISLAM AI ASSISTANT -->
+    <script>
+        window.ramadhanWorldApp = {}; // Bridge object for communication between scripts
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM Elements
+            const chatContainer = document.getElementById('chat-container');
+            const chatInput = document.getElementById('chat-input');
+            const sendButton = document.getElementById('send-button');
+            const micButton = document.getElementById('mic-button');
+            const welcomeMessage = document.getElementById('welcome-message'); 
+
+            // State variables
+            let messages = []; 
+            let isLoading = false; 
+            let isRecording = false; 
+            let browserSupportsSpeechRecognition = false;
+            let recognitionInstance = null;
+            let latestTranscript = ''; 
+            
+            // Audio state
+            let audioContext = null; 
+            let currentAudio = null; 
+            let currentlyPlayingId = null; 
+
+            // API Key for Gemini (Leave as empty string; Canvas will provide at runtime)
+            const apiKey = ""; 
+
+            // Default language and TTS voice
+            const defaultLangCode = 'en-US'; 
+            const defaultTtsVoice = 'Zephyr'; 
+            
+            // --- INITIALIZATION ---
+            function initialize() {
+                if (!chatContainer) return; // Don't run if the elements for this view aren't on the page
+                setupEventListeners();
+                initializeSpeechRecognition();
+                updateButtonStates();
+            }
+            
+            function setupEventListeners() {
+                sendButton.addEventListener('click', () => handleSendMessage());
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') handleSendMessage();
+                });
+                micButton.addEventListener('click', () => {
+                    isRecording ? stopRecording() : startRecording();
+                });
+                chatContainer.addEventListener('click', (e) => {
+                    const button = e.target.closest('.audio-player-button');
+                    if (button) {
+                        const messageId = parseInt(button.dataset.messageId, 10);
+                        const message = messages.find(m => m.id === messageId);
+                        if(message && message.audioUrl){
+                           togglePlayPause(messageId, message.audioUrl);
+                        }
+                    }
+                });
+            }
+            
+            function scrollToBottom() {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+
+            // --- UI RENDERING ---
+            function renderMessages() {
+                if (messages.length > 0 && welcomeMessage) {
+                    welcomeMessage.style.display = 'none';
+                }
+
+                chatContainer.innerHTML = messages.map(msg => {
+                    if (msg.type === 'loading') {
+                        return `
+                            <div class="message ai-message">
+                                <div class="loading-dots flex items-center space-x-2">
+                                    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    const messageClass = msg.sender === 'user' ? 'user-message' : 'ai-message';
+                    
+                    let audioControl = '';
+                    if (msg.sender === 'ai') {
+                        if (msg.isGeneratingAudio) {
+                            audioControl = `
+                                <div class="flex items-center text-xs mt-2" style="color: var(--text-muted);">
+                                    <i class="fas fa-spinner audio-generating-spinner mr-2"></i>
+                                    Preparing audio...
+                                </div>`;
+                        } else if (msg.audioUrl) {
+                            const isPlaying = currentlyPlayingId === msg.id;
+                            const iconClass = isPlaying ? 'fa-pause' : 'fa-play';
+                            audioControl = `
+                                <div class="mt-2">
+                                    <button class="audio-player-button" data-message-id="${msg.id}" aria-label="${isPlaying ? 'Pause' : 'Play'}">
+                                        <i class="fas ${iconClass}"></i>
+                                    </button>
+                                </div>`;
+                        }
+                    }
+
+                    return `
+                        <div class="message ${messageClass}" style="display: flex; flex-direction: column;">
+                            <p>${msg.text}</p>
+                            ${audioControl}
+                        </div>
+                    `;
+                }).join('');
+                
+                scrollToBottom(); 
+            }
+            
+            function updateButtonStates() {
+                const canSend = !isLoading && !isRecording && chatInput.value.trim() !== '';
+                sendButton.disabled = !canSend;
+                micButton.disabled = isLoading;
+                chatInput.disabled = isLoading || isRecording;
+                micButton.classList.toggle('recording', isRecording); 
+                chatInput.placeholder = isRecording ? "Listening..." : "Type your question...";
+            }
+            
+            // --- MESSAGE HANDLING ---
+            async function handleSendMessage(questionFromSpeech = null) {
+                const currentQuestion = questionFromSpeech !== null ? questionFromSpeech : chatInput.value.trim();
+                if (currentQuestion === '') return;
+
+                messages.push({ id: Date.now(), sender: 'user', text: currentQuestion });
+                renderMessages();
+                
+                chatInput.value = ''; 
+                isLoading = true; 
+                updateButtonStates();
+
+                messages.push({ type: 'loading' });
+                renderMessages();
+
+                try {
+                    const aiResponseText = await getAIResponse(currentQuestion);
+                    
+                    const messageId = Date.now() + 1;
+
+                    messages.pop(); // remove loading
+                    messages.push({ 
+                        id: messageId, 
+                        sender: 'ai', 
+                        text: aiResponseText, 
+                        audioUrl: null, 
+                        isGeneratingAudio: true 
+                    });
+                    renderMessages();
+
+                    const audioUrl = await generateAudio(aiResponseText);
+
+                    const messageIndex = messages.findIndex(m => m.id === messageId);
+                    if (messageIndex !== -1) {
+                        messages[messageIndex].isGeneratingAudio = false; 
+                        messages[messageIndex].audioUrl = audioUrl;
+                    }
+                    renderMessages();
+
+                } catch (error) {
+                    console.error("Error:", error);
+                    messages.pop(); // remove loading
+                    messages.push({ id: Date.now(), sender: 'ai', text: "An error occurred. Please try again." });
+                    renderMessages();
+                } finally {
+                    isLoading = false; 
+                    updateButtonStates();
+                }
+            }
+
+            // --- GEMINI API INTEGRATION ---
+            async function getAIResponse(prompt) {
+                const langCode = defaultLangCode; 
+
+                const systemInstruction = `You are a powerful and relevant Islamic AI assistant. Provide direct, short, and highly relevant answers to questions about Islam. Start with the most important information. Include a concise summary of the answer. If the answer contains an Arabic dua from the Quran or Hadith, provide the Arabic text of the dua. Always include a clear reference from the Quran (e.g., "Quran [Surah Number]:[Ayat Number]") or a Sahih Muslim Hadith (e.g., "Sahih Muslim Hadith [Book Number], [Hadith Number]") at the end of your answer. If a question is outside the scope of Islamic teachings, politely state that you cannot answer it. Respond in English.`;
+
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: systemInstruction + "\n\n" + prompt }] });
+                
+                const payload = { contents: chatHistory };
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                for (let i = 0; i < 3; i++) {
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        const result = await response.json();
+                        if (result.candidates && result.candidates.length > 0 &&
+                            result.candidates[0].content && result.candidates[0].content.parts &&
+                            result.candidates[0].content.parts.length > 0) {
+                            return result.candidates[0].content.parts[0].text;
+                        } else {
+                            console.warn("Unexpected API response structure:", result);
+                            return "I couldn't get a clear answer. Please try rephrasing.";
+                        }
+                    } catch (error) {
+                        console.error(`Attempt ${i + 1}: Error fetching AI response:`, error);
+                        if (i < 2) {
+                            await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+                        }
+                    }
+                }
+                throw new Error("Failed to get AI response after multiple retries.");
+            }
+
+            async function generateAudio(text) {
+                const ttsVoice = defaultTtsVoice; 
+
+                const payload = {
+                    contents: [{
+                        parts: [{ text: text }]
+                    }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: ttsVoice }
+                            }
+                        }
+                    },
+                    model: "gemini-2.5-flash-preview-tts"
+                };
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+                for (let i = 0; i < 3; i++) {
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        const result = await response.json();
+                        const part = result?.candidates?.[0]?.content?.parts?.[0];
+                        const audioData = part?.inlineData?.data;
+                        const mimeType = part?.inlineData?.mimeType;
+
+                        if (audioData && mimeType && mimeType.startsWith("audio/L16")) {
+                            const sampleRateMatch = mimeType.match(/rate=(\d+)/);
+                            const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 16000;
+
+                            const pcmData = base64ToArrayBuffer(audioData);
+                            const pcm16 = new Int16Array(pcmData);
+                            const wavBlob = pcmToWav(pcm16, sampleRate);
+                            return URL.createObjectURL(wavBlob);
+                        } else {
+                            console.warn("Unexpected TTS API response structure or mime type:", result);
+                            return null;
+                        }
+                    } catch (error) {
+                        console.error(`Attempt ${i + 1}: Error generating audio:`, error);
+                        if (i < 2) {
+                            await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+                        }
+                    }
+                }
+                throw new Error("Failed to generate audio after multiple retries.");
+            }
+
+            function base64ToArrayBuffer(base64) {
+                const binaryString = atob(base64);
+                const len = binaryString.length;
+                const bytes = new Uint8Array(len);
+                for (let i = 0; i < len; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+                return bytes.buffer;
+            }
+
+            function pcmToWav(pcmData, sampleRate) {
+                const numChannels = 1;
+                const bytesPerSample = 2;
+
+                const wavBuffer = new ArrayBuffer(44 + pcmData.length * bytesPerSample);
+                const view = new DataView(wavBuffer);
+
+                writeString(view, 0, 'RIFF');
+                view.setUint32(4, 36 + pcmData.length * bytesPerSample, true);
+                writeString(view, 8, 'WAVE');
+
+                writeString(view, 12, 'fmt ');
+                view.setUint32(16, 16, true);
+                view.setUint16(20, 1, true);
+                view.setUint16(22, numChannels, true);
+                view.setUint32(24, sampleRate, true);
+                view.setUint32(28, sampleRate * numChannels * bytesPerSample, true);
+                view.setUint16(32, numChannels * bytesPerSample, true);
+                view.setUint16(34, 16, true);
+
+                writeString(view, 36, 'data');
+                view.setUint32(40, pcmData.length * bytesPerSample, true);
+
+                for (let i = 0; i < pcmData.length; i++) {
+                    view.setInt16(44 + i * bytesPerSample, pcmData[i], true);
+                }
+
+                return new Blob([view], { type: 'audio/wav' });
+            }
+
+            function writeString(view, offset, string) {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            }
+
+            function togglePlayPause(messageId, audioUrl) {
+                if (currentlyPlayingId === messageId) {
+                    if (currentAudio) {
+                        currentAudio.pause();
+                        currentAudio = null;
+                        currentlyPlayingId = null;
+                    }
+                } else {
+                    if (currentAudio) {
+                        currentAudio.pause();
+                    }
+                    
+                    currentAudio = new Audio(audioUrl);
+                    currentAudio.play();
+                    currentlyPlayingId = messageId;
+                    
+                    currentAudio.onended = () => {
+                        currentlyPlayingId = null;
+                        currentAudio = null;
+                        renderMessages();
+                    };
+                }
+                renderMessages();
+            }
+
+            function initializeSpeechRecognition() {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if(SpeechRecognition) {
+                    browserSupportsSpeechRecognition = true;
+                    recognitionInstance = new SpeechRecognition();
+                    recognitionInstance.continuous = false;
+                    recognitionInstance.interimResults = false;
+                    recognitionInstance.lang = defaultLangCode;
+
+                    recognitionInstance.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript;
+                        chatInput.value = transcript;
+                        latestTranscript = transcript;
+                    };
+                    
+                    recognitionInstance.onend = () => {
+                        isRecording = false;
+                        isLoading = false;
+                        updateButtonStates();
+                        if(latestTranscript.trim()){
+                            handleSendMessage(latestTranscript.trim());
+                        }
+                        latestTranscript = '';
+                    };
+
+                    recognitionInstance.onerror = (event) => {
+                        console.error("Speech recognition error:", event.error);
+                        let errorMessage = "Error during speech recognition.";
+                        if (event.error === 'not-allowed') errorMessage = "Microphone access denied. Please allow microphone access in your browser settings.";
+                        if (event.error === 'no-speech') errorMessage = "No speech was detected. Please try speaking louder or clearer.";
+                        messages.push({ id: Date.now(), sender: 'ai', text: errorMessage });
+                        renderMessages();
+                        isRecording = false;
+                        isLoading = false;
+                        updateButtonStates();
+                    };
+                } else {
+                    micButton.style.display = 'none';
+                }
+            }
+            
+            async function startRecording() {
+                if (!browserSupportsSpeechRecognition || isLoading) return;
+                try {
+                    await navigator.mediaDevices.getUserMedia({ audio: true });
+                    isRecording = true;
+                    isLoading = true;
+                    chatInput.value = '';
+                    updateButtonStates();
+                    recognitionInstance.start();
+                } catch (err) {
+                    messages.push({ id: Date.now(), sender: 'ai', text: "Microphone access denied. Please allow microphone access in your browser settings." });
+                    renderMessages();
+                }
+            }
+
+            function stopRecording() {
+                if (recognitionInstance && isRecording) {
+                    recognitionInstance.stop();
+                }
+            }
+            
+            // --- BRIDGE FUNCTIONS ---
+            // These functions are attached to the global bridge object to be called from the main app script
+            window.ramadhanWorldApp.stopAskIslamAudio = () => {
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio = null;
+                    currentlyPlayingId = null;
+                    renderMessages(); // To update the play/pause icon
+                }
+            };
+            window.ramadhanWorldApp.stopAskIslamRecording = () => {
+                if (recognitionInstance && isRecording) {
+                    stopRecording();
+                }
+            };
+
+            initialize();
+        });
+    </script>
 
     <script>
         // Main Application Logic
-        const loadingScreen=document.getElementById("loading-screen"),mainContent=document.getElementById("main-content"),islamicDateEl=document.getElementById("islamic-date"),locationEl=document.getElementById("location"),nextPrayerNameEl=document.getElementById("next-prayer-name"),countdownTimerEl=document.getElementById("countdown-timer"),countdownSectionCard=document.querySelector("#countdown-section .card"),celestialVisualizationEl=document.getElementById("celestial-visualization"),salahPrayerTimeElements={Fajr:document.querySelector("#salah-fajr span:last-child"),Sunrise:document.querySelector("#salah-sunrise span:last-child"),Dhuhr:document.querySelector("#salah-dhuhr span:last-child"),Asr:document.querySelector("#salah-asr span:last-child"),Maghrib:document.querySelector("#salah-maghrib span:last-child"),Isha:document.querySelector("#salah-isha span:last-child")},views={home:document.getElementById("home-view"),qibla:document.getElementById("qibla-view"),listenQuran:document.getElementById("listen-quran-view"),radio:document.getElementById("radio-view"),salah:document.getElementById("salah-view"),tasbeeh:document.getElementById("tasbeeh-view"),naat:document.getElementById("naat-view"),calendar:document.getElementById("calendar-view"),settings:document.getElementById("settings-view"),hadith:document.getElementById("hadith-view")},qiblaDirectionEl=document.getElementById("qibla-direction"),compass=document.getElementById("compass"),qiblaLine=document.getElementById("qibla-line"),quranSurahList=document.getElementById("quran-surah-list"),quranAudioPlayer=document.getElementById("quran-audio-player"),currentSurahName=document.getElementById("current-surah-name"),homeRadioAudioPlayer=document.getElementById("home-radio-audio-player"),settingsSavedMessage=document.getElementById("settings-saved-message"),tvPlayButton=document.getElementById("tv-play-button"),tvPauseButton=document.getElementById("tv-pause-button"),tasbeehCounterDisplay=document.getElementById("tasbeeh-counter-display"),hadithContentHome=document.getElementById("hadith-content-home"),dailyIslamicMessageEl=document.getElementById("daily-islamic-message"),dailyIslamicMessageRefEl=document.getElementById("daily-islamic-message-ref"),settingsNotificationToggle=document.getElementById("settings-notification-toggle"),calculationMethodSelect=document.getElementById("calculation-method-select"),salahPopup=document.getElementById("salah-popup"),salahPopupName=document.getElementById("salah-popup-name");
+        const loadingScreen=document.getElementById("loading-screen"),mainContent=document.getElementById("main-content"),islamicDateEl=document.getElementById("islamic-date"),locationEl=document.getElementById("location"),nextPrayerNameEl=document.getElementById("next-prayer-name"),countdownTimerEl=document.getElementById("countdown-timer"),countdownSectionCard=document.querySelector("#countdown-section .card"),celestialVisualizationEl=document.getElementById("celestial-visualization"),salahPrayerTimeElements={Fajr:document.querySelector("#salah-fajr span:last-child"),Sunrise:document.querySelector("#salah-sunrise span:last-child"),Dhuhr:document.querySelector("#salah-dhuhr span:last-child"),Asr:document.querySelector("#salah-asr span:last-child"),Maghrib:document.querySelector("#salah-maghrib span:last-child"),Isha:document.querySelector("#salah-isha span:last-child")},views={home:document.getElementById("home-view"),qibla:document.getElementById("qibla-view"),listenQuran:document.getElementById("listen-quran-view"),radio:document.getElementById("radio-view"),salah:document.getElementById("salah-view"),tasbeeh:document.getElementById("tasbeeh-view"),naat:document.getElementById("naat-view"),calendar:document.getElementById("calendar-view"),settings:document.getElementById("settings-view"),hadith:document.getElementById("hadith-view"),askIslam:document.getElementById("ask-islam-view")},qiblaDirectionEl=document.getElementById("qibla-direction"),compass=document.getElementById("compass"),qiblaLine=document.getElementById("qibla-line"),quranSurahList=document.getElementById("quran-surah-list"),quranAudioPlayer=document.getElementById("quran-audio-player"),currentSurahName=document.getElementById("current-surah-name"),homeRadioAudioPlayer=document.getElementById("home-radio-audio-player"),settingsSavedMessage=document.getElementById("settings-saved-message"),tvPlayButton=document.getElementById("tv-play-button"),tvPauseButton=document.getElementById("tv-pause-button"),tasbeehCounterDisplay=document.getElementById("tasbeeh-counter-display"),hadithContentHome=document.getElementById("hadith-content-home"),dailyIslamicMessageEl=document.getElementById("daily-islamic-message"),dailyIslamicMessageRefEl=document.getElementById("daily-islamic-message-ref"),settingsNotificationToggle=document.getElementById("settings-notification-toggle"),calculationMethodSelect=document.getElementById("calculation-method-select"),salahPopup=document.getElementById("salah-popup"),salahPopupName=document.getElementById("salah-popup-name");
         
         const weatherTempEl = document.getElementById('weather-temp');
         const weatherCityEl = document.getElementById('weather-city');
@@ -515,7 +1084,7 @@
 
         function getUserLocation(){return new Promise(a=>{navigator.geolocation?navigator.geolocation.getCurrentPosition(async e=>{userCoords={latitude:e.coords.latitude,longitude:e.coords.longitude},qiblaAngle=calculateQiblaDirection(userCoords.latitude,userCoords.longitude);try{const t=await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userCoords.latitude}&lon=${userCoords.longitude}`),n=await t.json(),o=n.address.city||n.address.town||"Unknown",r=n.address.country||"Country";locationEl.textContent=`${o}, ${r}`,weatherCityEl.textContent = o,prayerTimesToday=await getPrayerTimes(o,r),prayerTimesToday&&updateCountdown(prayerTimesToday),getWeather(userCoords.latitude, userCoords.longitude)}catch(e){prayerTimesToday=await getPrayerTimes("Karachi","Pakistan"),prayerTimesToday&&updateCountdown(prayerTimesToday)}a()},async()=>{locationEl.textContent="Location denied. Using default times for Karachi.",weatherCityEl.textContent = "Karachi";prayerTimesToday=await getPrayerTimes("Karachi","Pakistan"),prayerTimesToday&&updateCountdown(prayerTimesToday),getWeather(24.8607, 67.0011),a()}):(getPrayerTimes("Karachi","Pakistan").then(a=>{prayerTimesToday=a,prayerTimesToday&&updateCountdown(prayerTimesToday)}),getWeather(24.8607, 67.0011),a())})}async function getPrayerTimes(a,e){try{const t=new Date,n=`${t.getDate()}-${t.getMonth()+1}-${t.getFullYear()}`,o=`https://api.aladhan.com/v1/timingsByCity/${n}?city=${a}&country=${e}&method=${calculationMethod}`,r=await fetch(o),d=await r.json();if(200===d.code)return displayPrayerTimes(d.data),d.data.timings;return null}catch(a){return console.error("Error fetching prayer times:",a),null}}function subtractMinutes(a,e){const[t,n]=a.split(":").map(Number),o=new Date;return o.setHours(t,n,0,0),o.setMinutes(o.getMinutes()-e),`${padZero(o.getHours())}:${padZero(o.getMinutes())}`}function displayPrayerTimes(a){const{timings:e,date:t}=a;islamicDateEl.textContent=`${t.hijri.weekday.en}, ${t.hijri.day} ${t.hijri.month.en} ${t.hijri.year}`,Object.keys(salahPrayerTimeElements).forEach(a=>{salahPrayerTimeElements[a]&&e[a]&&(salahPrayerTimeElements[a].textContent=formatTime(e[a]))});const n=subtractMinutes(e.Fajr,10),o=e.Maghrib;document.querySelector("#salah-sehri span:last-child").textContent=formatTime(n),document.querySelector("#salah-iftar span:last-child").textContent=formatTime(o)}function updateCountdown(a){countdownInterval&&clearInterval(countdownInterval);let e={};countdownInterval=setInterval(()=>{const t=new Date;let n=findNextPrayer(t,a);let o;if(n)o=new Date(`${t.toDateString()} ${n.time}`);else{n={name:"Fajr",time:a.Fajr};const e=new Date;e.setDate(e.getDate()+1),o=new Date(`${e.toDateString()} ${n.time}`),23===t.getHours()&&59===t.getMinutes()&&(e={})}nextPrayerNameEl.textContent=n.name,updateCountdownBackground(a);const r=o.getTime()-t.getTime();if(r>0){const t=Math.floor(r/36e5),o=Math.floor(r%36e5/6e4),d=Math.floor(r%6e4/1e3);countdownTimerEl.textContent=`${padZero(t)}:${padZero(o)}:${padZero(d)}`,r<=1e3&&!e[n.name]&&(triggerPrayerNotification(n.name),e[n.name]=!0)}else updateCountdown(a)},1e3)}function findNextPrayer(a,e){for(const t of["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"])if(e[t]){const n=new Date(`${a.toDateString()} ${e[t]}`);if(n>a)return{name:t,time:e[t]}}return null}
         
-        function showView(a){var e;"listenQuran"!==a&&quranAudioPlayer.pause(),"radio"!==a&&homeRadioAudioPlayer.pause(),"naat"!==a&&youtubePlayer&&"function"==typeof youtubePlayer.pauseVideo&&youtubePlayer.pauseVideo(),Object.values(views).forEach(a=>a.classList.add("hidden")),views[a]&&views[a].classList.remove("hidden"),document.querySelectorAll(".nav-button").forEach(a=>a.classList.remove("active")),null===(e=document.querySelector(`.nav-button[onclick="showView('${a}')"]`))||void 0===e||e.classList.add("active");"qibla"===a?startCompass():stopCompass()}
+        function showView(a){var e;"listenQuran"!==a&&quranAudioPlayer.pause(),"radio"!==a&&homeRadioAudioPlayer.pause(),"naat"!==a&&youtubePlayer&&"function"==typeof youtubePlayer.pauseVideo&&youtubePlayer.pauseVideo(),"askIslam"!==a&&window.ramadhanWorldApp&&("function"==typeof window.ramadhanWorldApp.stopAskIslamAudio&&window.ramadhanWorldApp.stopAskIslamAudio(),"function"==typeof window.ramadhanWorldApp.stopAskIslamRecording&&window.ramadhanWorldApp.stopAskIslamRecording()),Object.values(views).forEach(a=>a.classList.add("hidden")),views[a]&&views[a].classList.remove("hidden"),document.querySelectorAll(".nav-button").forEach(a=>a.classList.remove("active")),null===(e=document.querySelector(`.nav-button[onclick="showView('${a}')"]`))||void 0===e||e.classList.add("active");"qibla"===a?startCompass():stopCompass()}
 
         function hideLoading(){loadingScreen.style.opacity="0",setTimeout(()=>{loadingScreen.style.display="none",mainContent.style.opacity=1},300)}function startCompass(){"undefined"!=typeof DeviceOrientationEvent&&"function"==typeof DeviceOrientationEvent.requestPermission?DeviceOrientationEvent.requestPermission().then(a=>{"granted"===a&&window.addEventListener("deviceorientation",handleOrientation)}).catch(console.error):window.addEventListener("deviceorientation",handleOrientation)}function stopCompass(){window.removeEventListener("deviceorientation",handleOrientation)}function handleOrientation(a){let e=a.webkitCompassHeading||a.alpha;null!==e&&compass&&qiblaLine&&(compass.style.transform=`rotate(${-e}deg)`,qiblaLine.style.transform=`translateX(-50%) rotate(${qiblaAngle}deg)`)}async function populateQuranList(){try{const a=await fetch("https://api.quran.com/api/v4/chapters");quranChapters=(await a.json()).chapters,quranSurahList.innerHTML=quranChapters.map((a,e)=>`\n                    <div id="surah-item-${a.id}" class="quran-surah flex justify-between items-center" onclick="toggleSurahPlay(${a.id}, ${e})">\n                        <div>\n                            <p class="surah-name font-semibold">${a.id}. ${a.name_simple}</p>\n                            <p class="text-sm text-gray-400">${a.translated_name.name}</p>\n                        </div>\n                        <i id="icon-${a.id}" class="fas fa-play play-pause-icon"></i>\n                    </div>`).join("")}catch(a){console.error("Error fetching Surahs:",a)}}async function toggleSurahPlay(a,e){const t=document.getElementById(`surah-item-${a}`);if(currentPlayingSurahElement&&currentPlayingSurahElement!==t&&quranAudioPlayer.pause(),t.classList.contains("playing")&&!quranAudioPlayer.paused)quranAudioPlayer.pause();else if(quranAudioPlayer.volume=1,currentSurahIndex===e)quranAudioPlayer.play();else try{const t=await fetch(`https://api.quran.com/api/v4/chapter_recitations/7/${a}`),n=await t.json();quranAudioPlayer.src=n.audio_file.audio_url,currentSurahIndex=e,quranAudioPlayer.play()}catch(a){console.error("Error fetching Surah audio:",a)}}quranAudioPlayer.onplay=()=>{if(currentPlayingSurahElement){currentPlayingSurahElement.classList.remove("playing");let a=currentPlayingSurahElement.id.split("-")[2];document.getElementById(`icon-${a}`).classList.replace("fa-pause","fa-play")}const a=quranChapters[currentSurahIndex];currentPlayingSurahElement=document.getElementById(`surah-item-${a.id}`),currentPlayingSurahElement.classList.add("playing"),document.getElementById(`icon-${a.id}`).classList.replace("fa-play","fa-pause"),currentSurahName.textContent=`${a.name_simple} (${a.translated_name.name})`},quranAudioPlayer.onpause=()=>{if(currentPlayingSurahElement){let a=currentPlayingSurahElement.id.split("-")[2];currentPlayingSurahElement.classList.remove("playing"),document.getElementById(`icon-${a}`).classList.replace("fa-pause","fa-play")}};function playNextSurah(){currentSurahIndex!==-1&&currentSurahIndex<quranChapters.length-1&&toggleSurahPlay(quranChapters[currentSurahIndex+1].id,currentSurahIndex+1)}function incrementTasbeeh(){tasbeehCounterDisplay.textContent=++tasbeehCount,saveSettings("ramadanTasbeeh",tasbeehCount),tasbeehCounterDisplay.style.transform="scale(1.2)",setTimeout(()=>{tasbeehCounterDisplay.style.transform="scale(1)"},100)}function resetTasbeeh(){tasbeehCounterDisplay.textContent=tasbeehCount=0,saveSettings("ramadanTasbeeh",tasbeehCount)}function setupRadioPlayer(){homeRadioAudioPlayer.src=radioStations[0].url,homeRadioAudioPlayer.addEventListener("play",()=>{homeRadioAudioPlayer.volume=1})}function onYouTubeIframeAPIReady(){youtubePlayer=new YT.Player("youtube-player",{height:"480",width:"854",playerVars:{playsinline:1,listType:"playlist",list:"PL6b_3Yr67_wFpDJfaZLlMEUP6h5EroJi2",controls:0,rel:0},events:{onStateChange:onPlayerStateChange}})}function onPlayerStateChange(a){tvPlayButton.classList.toggle("hidden",a.data===YT.PlayerState.PLAYING),tvPauseButton.classList.toggle("hidden",a.data!==YT.PlayerState.PLAYING)}function playVideo(){youtubePlayer.playVideo()}function pauseVideo(){youtubePlayer.pauseVideo()}function nextVideo(){youtubePlayer.nextVideo()}function previousVideo(){youtubePlayer.previousVideo()}function loadAllSettings(){notificationsEnabled="false"!==localStorage.getItem(NOTIFICATION_STATUS_KEY),calculationMethod=localStorage.getItem(CALC_METHOD_KEY)||2,tasbeehCount=localStorage.getItem("ramadanTasbeeh")||0,tasbeehCounterDisplay.textContent=tasbeehCount,calculationMethodSelect.value=calculationMethod,updateSettingsNotificationUI()}function saveSettings(a,e){localStorage.setItem(a,e)}function updateSettingsNotificationUI(){notificationsEnabled?(settingsNotificationToggle.textContent="Notifications are ON (Click to Disable)",settingsNotificationToggle.classList.remove("bg-red-600","hover:bg-red-700"),settingsNotificationToggle.classList.add("bg-green-600","hover:bg-green-700")):(settingsNotificationToggle.textContent="Notifications are OFF (Click to Enable)",settingsNotificationToggle.classList.remove("bg-green-600","hover:bg-green-700"),settingsNotificationToggle.classList.add("bg-red-600","hover:bg-red-700"))}function toggleMasterNotifications(){"denied"===Notification.permission?showTemporaryMessage("Notifications are blocked by your browser.",!0):"default"===Notification.permission?Notification.requestPermission().then(a=>{"granted"===a&&(notificationsEnabled=!notificationsEnabled,saveSettings(NOTIFICATION_STATUS_KEY,notificationsEnabled),updateSettingsNotificationUI(),showTemporaryMessage(`Notifications ${notificationsEnabled?"Enabled":"Disabled"}`))}):(notificationsEnabled=!notificationsEnabled,saveSettings(NOTIFICATION_STATUS_KEY,notificationsEnabled),updateSettingsNotificationUI(),showTemporaryMessage(`Notifications ${notificationsEnabled?"Enabled":"Disabled"}`))}
         function triggerPrayerNotification(a){if(notificationsEnabled){salahPopupName.textContent=a,salahPopup.classList.remove("hidden"),salahPopup.style.opacity=1,salahPopup.style.transform="translate(-50%, -50%) scale(1)"}}
