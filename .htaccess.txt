@@ -1,0 +1,45 @@
+# ----------------------------------------------------------------------
+# ✅ Security Headers and CSP for Ramadhan World
+# ----------------------------------------------------------------------
+
+<IfModule mod_headers.c>
+
+  # Content Security Policy
+  Header set Content-Security-Policy "default-src 'self'; 
+    script-src 'self' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://www.youtube.com https://www.gstatic.com https://fonts.googleapis.com https://fonts.gstatic.com https://generativelanguage.googleapis.com;
+    frame-src https://www.youtube.com https://www.youtube-nocookie.com;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+    font-src https://fonts.gstatic.com;
+    img-src 'self' data: https:;
+    connect-src 'self' https://generativelanguage.googleapis.com;
+    media-src blob: data:;
+  "
+
+  # Prevent Clickjacking
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Prevent MIME-type sniffing
+  Header set X-Content-Type-Options "nosniff"
+
+  # Enable XSS Protection
+  Header set X-XSS-Protection "1; mode=block"
+
+  # Referrer Policy
+  Header set Referrer-Policy "no-referrer-when-downgrade"
+
+  # Permissions Policy
+  Header set Permissions-Policy "microphone=(), camera=(), geolocation=()"
+
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Optional: Disable Directory Listing
+# ----------------------------------------------------------------------
+Options -Indexes
+
+# ----------------------------------------------------------------------
+# Optional: Force HTTPS (if SSL is active)
+# ----------------------------------------------------------------------
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
