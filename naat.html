@@ -73,7 +73,7 @@
                     <div id="youtube-player">
                         <!-- Fallback message if YouTube player doesn't load -->
                         <div class="youtube-fallback">
-                            <p>YouTube player could not load. Please check your browser console for errors, especially Content Security Policy (CSP) issues.</p>
+                            <p>YouTube player could not load. This is likely due to Content Security Policy (CSP) restrictions on your website.</p>
                         </div>
                     </div>
                 </div>
@@ -83,12 +83,7 @@
                     <button id="tv-pause-button" onclick="pauseVideo()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full text-lg hidden"><i class="fas fa-pause"></i></button>
                     <button onclick="nextVideo()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full text-lg"><i class="fas fa-forward"></i></button>
                 </div>
-                 <!-- Ad Unit -->
-                <div class="ad-container-bottom">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8794459819365243" crossorigin="anonymous"></script>
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8794459819365243" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <!-- The adsbygoogle.push({}); call is now handled in JavaScript after the main content is visible -->
-                </div>
+                <!-- Ad Unit removed -->
             </div>
         </main>
         
@@ -173,11 +168,6 @@
             setTimeout(() => {
                 loadingScreen.style.display = "none";
                 mainContent.style.opacity = 1;
-                // Initialize AdSense after main content is visible and rendered
-                if (window.adsbygoogle && mainContent.style.opacity === "1") {
-                    console.log("Pushing AdSense ad after main content is visible.");
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                }
             }, 300);
         }
 
