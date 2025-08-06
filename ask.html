@@ -307,6 +307,9 @@
                 chatInput.addEventListener('keypress', (e) => {
                     if (e.key === 'Enter') handleSendMessage();
                 });
+                // *** FIX: This line enables the buttons when you type ***
+                chatInput.addEventListener('input', updateButtonStates);
+                
                 micButton.addEventListener('click', () => {
                     isRecording ? stopRecording() : startRecording();
                 });
