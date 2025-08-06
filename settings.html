@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings - Ramadhan World</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Customize your app settings. Choose your preferred prayer time calculation method and manage notifications.">
+    <link rel="canonical" href="https://www.ramadhanworld.com/settings.html">
+    <!-- Common Head Content (CSS, Fonts, etc.) -->
+    <link rel="icon" href="https://i.ibb.co/Zp0bgjsS/ART-WORKS-1.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+    body{font-family:'Cairo','Inter',sans-serif;background:linear-gradient(to bottom,#0a192f,#113a3b);color:#e6f1ff}
+    .card{background-color:rgba(10,25,47,.85);backdrop-filter:blur(10px);border:1px solid rgba(57,255,20,.2);box-shadow:0 8px 32px 0 rgba(0,0,0,.37);border-radius:.75rem}
+    .nav-button.active{background-color:#39FF14;color:#0a192f;font-weight:700;box-shadow:0 4px 14px rgba(57,255,20,.4)}
+    .nav-button:hover{background-color:rgba(57,255,20,.8);color:#000}
+    .section-title{font-family:'Cairo',sans-serif;font-weight:700;font-size:1.875rem;text-align:center;margin-bottom:1.5rem;color:#fff;text-shadow:0 0 5px #39FF14,0 0 10px #39FF14}
+    .settings-select{background-color:#1f2937;border:1px solid #374151;color:#fff;padding:.5rem;border-radius:.5rem;width:100%}
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <div id="loading-screen" class="fixed inset-0 bg-gray-900 flex flex-col justify-center items-center z-50 transition-opacity duration-300">
+        <h1 class="text-4xl sm:text-5xl font-extrabold" style="color: #39FF14;">RAMADHAN WORLD</h1>
+    </div>
+
+    <div id="main-content" class="min-h-screen container mx-auto p-4 sm:p-6 lg:p-8 opacity-0 transition-opacity duration-1000">
+        <!-- Header Section -->
+        <header class="text-center mb-6">
+            <img id="app-logo" src="https://i.ibb.co/Zp0bgjsS/ART-WORKS-1.png" alt="Ramadhan World App Logo" class="w-[200px] h-[200px] mx-auto mb-4 rounded-full shadow-lg object-contain" loading="lazy" decoding="async">
+            <h1 class="text-4xl sm:text-5xl font-extrabold" style="color: #39FF14;">Ramadhan World</h1>
+            <p id="islamic-date" class="text-lg text-gray-300 mt-2">Loading Islamic Date...</p>
+            <p id="location" class="text-md text-gray-400 mt-1">Fetching location...</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="flex justify-center gap-2 mb-6 flex-wrap items-center">
+            <a href="index.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🏠 Home</a>
+            <a href="salah.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🕌 Salah</a>
+            <a href="quran.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📖 Quran</a>
+            <a href="radio.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📻 Radio</a>
+            <a href="ask.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">💬 Ask Islam</a>
+            <a href="tasbeeh.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📿 Tasbeeh</a>
+            <a href="hadith.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📜 Hadith</a>
+            <a href="naat.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🎵 Naat</a>
+            <a href="qibla.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🧭 Qibla</a>
+            <a href="calendar.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🗓️ Calendar</a>
+            <a href="settings.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">⚙️ Settings</a>
+        </nav>
+
+        <!-- Main Content -->
+        <main>
+            <div class="card p-6 max-w-lg mx-auto">
+                <h2 class="section-title">⚙️ App Settings</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label for="calculation-method-select" class="text-lg font-semibold text-green-400 mb-2 block">Salah Calculation Method</label>
+                        <p class="text-sm text-gray-400 mb-2">Select the calculation authority for prayer times. Changes will apply on next refresh.</p>
+                        <select id="calculation-method-select" class="settings-select">
+                            <option value="1">Muslim World League</option>
+                            <option value="2" selected>ISNA (North America)</option>
+                            <option value="3">Egyptian General Authority</option>
+                            <option value="4">Umm Al-Qura, Makkah</option>
+                            <option value="5">University of Islamic Sciences, Karachi</option>
+                        </select>
+                    </div>
+                    <hr class="border-gray-700">
+                    <div>
+                        <h3 class="text-lg font-semibold text-green-400 mb-2">Master Notification Control</h3>
+                        <p class="text-sm text-gray-400 mb-2">Enable or disable all prayer time pop-up notifications.</p>
+                        <button id="settings-notification-toggle" onclick="toggleMasterNotifications()" class="w-full py-2 px-4 rounded-lg transition-colors">Toggle Notifications</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="text-center p-4 text-sm text-gray-600 space-x-4 mt-8">
+          <a href="about.html" class="text-blue-600 underline">About</a>
+          <a href="privacy.html" class="text-blue-600 underline">Privacy Policy</a>
+          <a href="contact.html" class="text-blue-600 underline">Contact</a>
+        </footer>
+    </div>
+    
+    <div id="settings-saved-message" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg opacity-0 transition-opacity duration-300"></div>
+
+    <!-- Scripts -->
+    <script>
+        const loadingScreen=document.getElementById("loading-screen"),mainContent=document.getElementById("main-content"),islamicDateEl=document.getElementById("islamic-date"),locationEl=document.getElementById("location"),settingsNotificationToggle=document.getElementById("settings-notification-toggle"),calculationMethodSelect=document.getElementById("calculation-method-select"),settingsSavedMessage=document.getElementById("settings-saved-message");
+        let notificationsEnabled=!0,calculationMethod=2;
+        const NOTIFICATION_STATUS_KEY="ramadanAppNotificationStatus",CALC_METHOD_KEY="ramadanAppCalcMethod";
+
+        function initializeAppFast(){
+            hideLoading();
+            loadAllSettings();
+            async function fetchInitialData() { await getUserLocation(); };
+            fetchInitialData();
+            if(calculationMethodSelect) calculationMethodSelect.addEventListener("change",a=>{ calculationMethod=a.target.value; saveSettings(CALC_METHOD_KEY,calculationMethod); showTemporaryMessage("Settings saved. Refresh to apply changes."); });
+        }
+        function hideLoading(){loadingScreen.style.opacity="0",setTimeout(()=>{loadingScreen.style.display="none",mainContent.style.opacity=1},300)}
+        async function getUserLocation(){return new Promise(a=>{navigator.geolocation?navigator.geolocation.getCurrentPosition(async e=>{try{const t=await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${e.coords.latitude}&lon=${e.coords.longitude}`),n=await t.json();if(islamicDateEl) getPrayerTimes(n.address.city||n.address.town,n.address.country)}catch(e){}a()},async()=>{a()}):a()})}
+        async function getPrayerTimes(a,e){try{const t=new Date,n=`${t.getDate()}-${t.getMonth()+1}-${t.getFullYear()}`,o=`https://api.aladhan.com/v1/timingsByCity/${n}?city=${a}&country=${e}&method=2`,r=await fetch(o),d=await r.json();if(200===d.code && islamicDateEl)islamicDateEl.textContent=`${d.data.date.hijri.weekday.en}, ${d.data.date.hijri.day} ${d.data.date.hijri.month.en} ${d.data.date.hijri.year}`}catch(a){console.error("Error fetching prayer times:",a)}}
+        function loadAllSettings(){notificationsEnabled="false"!==localStorage.getItem(NOTIFICATION_STATUS_KEY);calculationMethod=localStorage.getItem(CALC_METHOD_KEY)||2;if(calculationMethodSelect)calculationMethodSelect.value=calculationMethod;updateSettingsNotificationUI();}
+        function saveSettings(a,e){localStorage.setItem(a,e)}
+        function updateSettingsNotificationUI(){if(!settingsNotificationToggle)return;notificationsEnabled?(settingsNotificationToggle.textContent="Notifications are ON (Click to Disable)",settingsNotificationToggle.classList.remove("bg-red-600","hover:bg-red-700"),settingsNotificationToggle.classList.add("bg-green-600","hover:bg-green-700")):(settingsNotificationToggle.textContent="Notifications are OFF (Click to Enable)",settingsNotificationToggle.classList.remove("bg-green-600","hover:bg-green-700"),settingsNotificationToggle.classList.add("bg-red-600","hover:bg-red-700"))}
+        function toggleMasterNotifications(){"denied"===Notification.permission?showTemporaryMessage("Notifications are blocked by your browser.",!0):"default"===Notification.permission?Notification.requestPermission().then(a=>{"granted"===a&&(notificationsEnabled=!notificationsEnabled,saveSettings(NOTIFICATION_STATUS_KEY,notificationsEnabled),updateSettingsNotificationUI(),showTemporaryMessage(`Notifications ${notificationsEnabled?"Enabled":"Disabled"}`))}):(notificationsEnabled=!notificationsEnabled,saveSettings(NOTIFICATION_STATUS_KEY,notificationsEnabled),updateSettingsNotificationUI(),showTemporaryMessage(`Notifications ${notificationsEnabled?"Enabled":"Disabled"}`))}
+        function showTemporaryMessage(a,e=!1){if(settingsSavedMessage){settingsSavedMessage.textContent=a;settingsSavedMessage.style.backgroundColor=e?"#ef4444":"#10B981";settingsSavedMessage.classList.add("opacity-100");setTimeout(()=>{settingsSavedMessage.classList.remove("opacity-100")},4e3)}}
+
+        document.addEventListener("DOMContentLoaded", initializeAppFast);
+    </script>
+    <script>
+    // Navigation Handler
+    document.addEventListener("DOMContentLoaded", function() {
+        const navButtons = document.querySelectorAll('nav .nav-button');
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        navButtons.forEach(button => {
+            const buttonPage = button.getAttribute('href');
+            if (buttonPage === currentPage) {
+                button.classList.add('active');
+            }
+        });
+    });
+    </script>
+</body>
+</html>

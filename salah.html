@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Salah Times - Ramadhan World</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get accurate daily prayer times (Salah), including Fajr, Dhuhr, Asr, Maghrib, and Isha, plus Sehri and Iftar times for your location.">
+    <link rel="canonical" href="https://www.ramadhanworld.com/salah.html">
+    <!-- Common Head Content (CSS, Fonts, etc.) -->
+    <link rel="icon" href="https://i.ibb.co/Zp0bgjsS/ART-WORKS-1.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.aladhan.com">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+    body{font-family:'Cairo','Inter',sans-serif;-webkit-tap-highlight-color:transparent;background:linear-gradient(to bottom,#0a192f,#113a3b);color:#e6f1ff;touch-action:manipulation;-ms-touch-action:manipulation;-webkit-user-select:none;user-select:none}
+    .card{background-color:rgba(10,25,47,.85);backdrop-filter:blur(10px);border:1px solid rgba(57,255,20,.2);box-shadow:0 8px 32px 0 rgba(0,0,0,.37);transition:background .5s ease-in-out,transform .3s ease;position:relative;overflow:hidden;border-radius:.75rem}
+    .card:hover{transform:translateY(-5px)}
+    .prayer-time.active{background:linear-gradient(90deg,rgba(57,255,20,.3),rgba(57,255,20,.1));border-left-width:4px;border-color:#39FF14;transition:background-color .3s ease,border-color .3s ease}
+    .nav-button.active{background-color:#39FF14;color:#0a192f;font-weight:700;box-shadow:0 4px 14px rgba(57,255,20,.4)}
+    .nav-button:hover{background-color:rgba(57,255,20,.8);color:#000}
+    .section-title{font-family:'Cairo',sans-serif;font-weight:700;font-size:1.875rem;text-align:center;margin-bottom:1.5rem;color:#fff;text-shadow:0 0 5px #39FF14,0 0 10px #39FF14}
+    .ad-container-bottom{margin-top:1.5rem;padding-top:1.5rem;border-top:1px dashed rgba(57,255,20,.3);text-align:center}
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <div id="loading-screen" class="fixed inset-0 bg-gray-900 flex flex-col justify-center items-center z-50 transition-opacity duration-300">
+        <h1 class="text-4xl sm:text-5xl font-extrabold" style="color: #39FF14;">RAMADHAN WORLD</h1>
+    </div>
+
+    <div id="main-content" class="min-h-screen container mx-auto p-4 sm:p-6 lg:p-8 opacity-0 transition-opacity duration-1000">
+        <!-- Header Section -->
+        <header class="text-center mb-6">
+            <img id="app-logo" src="https://i.ibb.co/Zp0bgjsS/ART-WORKS-1.png" alt="Ramadhan World App Logo" class="w-[200px] h-[200px] mx-auto mb-4 rounded-full shadow-lg object-contain" loading="lazy" decoding="async">
+            <h1 class="text-4xl sm:text-5xl font-extrabold" style="color: #39FF14;">Ramadhan World</h1>
+            <p id="islamic-date" class="text-lg text-gray-300 mt-2">Loading Islamic Date...</p>
+            <p id="location" class="text-md text-gray-400 mt-1">Fetching location...</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="flex justify-center gap-2 mb-6 flex-wrap items-center">
+            <a href="index.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🏠 Home</a>
+            <a href="salah.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🕌 Salah</a>
+            <a href="quran.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📖 Quran</a>
+            <a href="radio.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📻 Radio</a>
+            <a href="ask.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">💬 Ask Islam</a>
+            <a href="tasbeeh.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📿 Tasbeeh</a>
+            <a href="hadith.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">📜 Hadith</a>
+            <a href="naat.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🎵 Naat</a>
+            <a href="qibla.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🧭 Qibla</a>
+            <a href="calendar.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">🗓️ Calendar</a>
+            <a href="settings.html" class="nav-button px-4 py-2 rounded-lg bg-gray-700 transition">⚙️ Settings</a>
+        </nav>
+
+        <!-- Main Content -->
+        <main>
+             <div class="card p-6 max-w-2xl mx-auto">
+                <h2 class="section-title mb-4 text-center">Today's Prayer Times</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div id="salah-fajr" class="prayer-time card rounded-xl p-4 flex justify-between items-center"><span class="font-semibold text-lg">Fajr</span><span class="text-xl font-mono">--:--</span></div>
+                    <div id="salah-sunrise" class="prayer-time card rounded-xl p-4 flex justify-between items-center"><span class="font-semibold text-lg">Sunrise</span><span class="text-xl font-mono">--:--</span></div>
+                    <div id="salah-dhuhr" class="prayer-time card rounded-xl p-4 flex justify-between items-center"><span class="font-semibold text-lg">Dhuhr</span><span class="text-xl font-mono">--:--</span></div>
+                    <div id="salah-asr" class="prayer-time card rounded-xl p-4 flex justify-between items-center"><span class="font-semibold text-lg">Asr</span><span class="text-xl font-mono">--:--</span></div>
+                    <div id="salah-maghrib" class="prayer-time card rounded-xl p-4 flex justify-between items-center"><span class="font-semibold text-lg">Maghrib</span><span class="text-xl font-mono">--:--</span></div>
+                    <div id="salah-isha" class="prayer-time card rounded-xl p-4 flex justify-between items-center"><span class="font-semibold text-lg">Isha</span><span class="text-xl font-mono">--:--</span></div>
+                </div>
+                <hr class="border-gray-600 my-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                    <div id="salah-sehri" class="card rounded-xl p-4 flex justify-between items-center bg-green-900 border-l-4 border-green-400">
+                        <span class="font-semibold text-lg">Sehri End</span>
+                        <span class="text-xl font-mono">--:--</span>
+                    </div>
+                    <div id="salah-iftar" class="card rounded-2xl p-4 flex justify-between items-center bg-yellow-800 border-l-4 border-yellow-400">
+                        <span class="font-semibold text-lg">Iftar</span>
+                        <span class="text-xl font-mono">--:--</span>
+                    </div>
+                </div>
+                 <!-- Ad Unit -->
+                <div class="ad-container-bottom">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8794459819365243" crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8794459819365243" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="text-center p-4 text-sm text-gray-600 space-x-4 mt-8">
+          <a href="about.html" class="text-blue-600 underline">About</a>
+          <a href="privacy.html" class="text-blue-600 underline">Privacy Policy</a>
+          <a href="contact.html" class="text-blue-600 underline">Contact</a>
+        </footer>
+    </div>
+
+    <!-- Pop-ups and Messages -->
+    <div id="settings-saved-message" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg opacity-0 transition-opacity duration-300"></div>
+    <div id="salah-popup" class="card hidden bg-gray-800">
+        <h2 id="salah-popup-name" class="text-3xl font-bold text-green-400"></h2>
+        <p class="text-lg mt-2">It's time for prayer.</p>
+        <button onclick="dismissSalahPopup()" class="mt-4 bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-6 rounded-lg transition">Dismiss</button>
+    </div>
+    
+    <!-- Scripts -->
+    <script>
+        // Main Application Logic (Common)
+        const loadingScreen=document.getElementById("loading-screen"),mainContent=document.getElementById("main-content"),islamicDateEl=document.getElementById("islamic-date"),locationEl=document.getElementById("location"),salahPrayerTimeElements={Fajr:document.querySelector("#salah-fajr span:last-child"),Sunrise:document.querySelector("#salah-sunrise span:last-child"),Dhuhr:document.querySelector("#salah-dhuhr span:last-child"),Asr:document.querySelector("#salah-asr span:last-child"),Maghrib:document.querySelector("#salah-maghrib span:last-child"),Isha:document.querySelector("#salah-isha span:last-child")},settingsSavedMessage=document.getElementById("settings-saved-message"),calculationMethodSelect=document.getElementById("calculation-method-select"),salahPopup=document.getElementById("salah-popup"),salahPopupName=document.getElementById("salah-popup-name");
+        let notificationsEnabled=!0,calculationMethod=2,prayerTimesToday=null;
+        const NOTIFICATION_STATUS_KEY="ramadanAppNotificationStatus",CALC_METHOD_KEY="ramadanAppCalcMethod";
+        
+        function initializeAppFast(){
+            hideLoading();
+            loadAllSettings();
+            async function fetchInitialData() { await getUserLocation(); };
+            fetchInitialData();
+        }
+        function hideLoading(){loadingScreen.style.opacity="0",setTimeout(()=>{loadingScreen.style.display="none",mainContent.style.opacity=1},300)}
+        function getUserLocation(){return new Promise(a=>{navigator.geolocation?navigator.geolocation.getCurrentPosition(async e=>{try{const t=await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${e.coords.latitude}&lon=${e.coords.longitude}`),n=await t.json(),o=n.address.city||n.address.town||"Unknown",r=n.address.country||"Country";if(locationEl)locationEl.textContent=`${o}, ${r}`;prayerTimesToday=await getPrayerTimes(o,r)}catch(e){prayerTimesToday=await getPrayerTimes("Karachi","Pakistan")}a()},async()=>{if(locationEl)locationEl.textContent="Location denied. Using default times for Karachi.";prayerTimesToday=await getPrayerTimes("Karachi","Pakistan"),a()}):(getPrayerTimes("Karachi","Pakistan"),a())})}
+        async function getPrayerTimes(a,e){try{const t=new Date,n=`${t.getDate()}-${t.getMonth()+1}-${t.getFullYear()}`,o=`https://api.aladhan.com/v1/timingsByCity/${n}?city=${a}&country=${e}&method=${calculationMethod}`,r=await fetch(o),d=await r.json();if(200===d.code)return displayPrayerTimes(d.data),d.data.timings;return null}catch(a){return console.error("Error fetching prayer times:",a),null}}
+        function subtractMinutes(a,e){const[t,n]=a.split(":").map(Number),o=new Date;return o.setHours(t,n,0,0),o.setMinutes(o.getMinutes()-e),`${padZero(o.getHours())}:${padZero(o.getMinutes())}`}
+        function displayPrayerTimes(a){const{timings:e,date:t}=a;if(islamicDateEl)islamicDateEl.textContent=`${t.hijri.weekday.en}, ${t.hijri.day} ${t.hijri.month.en} ${t.hijri.year}`;Object.keys(salahPrayerTimeElements).forEach(a=>{salahPrayerTimeElements[a]&&e[a]&&(salahPrayerTimeElements[a].textContent=formatTime(e[a]))});const n=subtractMinutes(e.Fajr,10),o=e.Maghrib;const sehriEl=document.querySelector("#salah-sehri span:last-child");if(sehriEl)sehriEl.textContent=formatTime(n);const iftarEl=document.querySelector("#salah-iftar span:last-child");if(iftarEl)iftarEl.textContent=formatTime(o)}
+        function loadAllSettings(){notificationsEnabled="false"!==localStorage.getItem(NOTIFICATION_STATUS_KEY);calculationMethod=localStorage.getItem(CALC_METHOD_KEY)||2;}
+        function saveSettings(a,e){localStorage.setItem(a,e)}
+        function dismissSalahPopup(){if(salahPopup){salahPopup.style.opacity=0;salahPopup.style.transform="translate(-50%, -50%) scale(0.8)";setTimeout(()=>{salahPopup.classList.add("hidden")},300)}}
+        function formatTime(a){if(!a)return"--:--";const[e,t]=a.split(":"),n=parseInt(e,10),o=n>=12?"PM":"AM",r=n%12||12;return`${padZero(r)}:${t} ${o}`}
+        function padZero(a){return a<10?"0"+a:String(a)}
+        document.addEventListener("DOMContentLoaded", initializeAppFast);
+    </script>
+    <script>
+    // Navigation Handler
+    document.addEventListener("DOMContentLoaded", function() {
+        const navButtons = document.querySelectorAll('nav .nav-button');
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        navButtons.forEach(button => {
+            const buttonPage = button.getAttribute('href');
+            if (buttonPage === currentPage) {
+                button.classList.add('active');
+            }
+        });
+    });
+    </script>
+</body>
+</html>
