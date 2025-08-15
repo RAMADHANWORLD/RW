@@ -1,4 +1,5 @@
 User-agent: *
-Allow: /
+Disallow: /
 
-Sitemap: https://www.ramadhanworld.com/sitemap.xml
+# Optional: Add sitemap link if needed in future
+# Sitemap: https://www.radhioramadhan.com/sitemap.xml
